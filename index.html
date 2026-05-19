@@ -1,1204 +1,664 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tier 2 Student Assessment Tracker</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #F5F0E8;
-    --surface: #FDFAF4;
-    --surface2: #EDE8DC;
-    --border: #C8BFA8;
-    --ink: #1C1814;
-    --ink2: #5C5248;
-    --ink3: #8C8278;
-    --accent: #C2401A;
-    --accent2: #2B5C3A;
-    --accent3: #1A3A5C;
-    --gold: #B8860B;
-    --reading: #C2401A;
-    --writing: #2B5C3A;
-    --language: #1A3A5C;
-    --r-light: #FDF0EC;
-    --w-light: #EDF5EF;
-    --l-light: #EBF0F5;
-    --tag-r: #FDEAE3;
-    --tag-w: #E3F0E5;
-    --tag-l: #E3EBF4;
-    --shadow: 0 2px 8px rgba(28,24,20,0.08), 0 1px 2px rgba(28,24,20,0.04);
-    --shadow-lg: 0 8px 32px rgba(28,24,20,0.12), 0 2px 8px rgba(28,24,20,0.06);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Instrument Sans', sans-serif;
-    min-height: 100vh;
-    padding: 0;
-  }
-
-  /* HEADER */
-  .header {
-    background: var(--ink);
-    color: var(--bg);
-    padding: 24px 40px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 24px;
-    border-bottom: 3px solid var(--accent);
-  }
-
-  .header-left { flex: 1; }
-
-  .header-eyebrow {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink3);
-    margin-bottom: 8px;
-  }
-
-  .header-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 28px;
-    line-height: 1.1;
-    color: var(--bg);
-    margin-bottom: 4px;
-  }
-
-  .header-sub {
-    font-size: 13px;
-    color: var(--ink3);
-  }
-
-  .deadline-badge {
-    background: var(--accent);
-    color: white;
-    padding: 10px 18px;
-    border-radius: 4px;
-    text-align: center;
-    flex-shrink: 0;
-  }
-
-  .deadline-badge .label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    opacity: 0.8;
-    display: block;
-    margin-bottom: 4px;
-  }
-
-  .deadline-badge .time {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-  }
-
-  /* MAIN LAYOUT */
-  .main {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 32px 40px;
-    display: grid;
-    grid-template-columns: 260px 1fr;
-    gap: 28px;
-    align-items: start;
-  }
-
-  /* SIDEBAR */
-  .sidebar { position: sticky; top: 24px; }
-
-  .sidebar-section {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 16px;
-    box-shadow: var(--shadow);
-  }
-
-  .sidebar-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--ink3);
-    margin-bottom: 14px;
-  }
-
-  .student-btn {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    padding: 10px 12px;
-    background: transparent;
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    cursor: pointer;
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--ink2);
-    margin-bottom: 8px;
-    text-align: left;
-    transition: all 0.15s;
-  }
-
-  .student-btn:last-child { margin-bottom: 0; }
-
-  .student-btn:hover {
-    border-color: var(--ink);
-    color: var(--ink);
-    background: var(--surface2);
-  }
-
-  .student-btn.active {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: var(--tag-r);
-    font-weight: 600;
-  }
-
-  .student-avatar {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: var(--surface2);
-    border: 1.5px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'DM Serif Display', serif;
-    font-size: 13px;
-    color: var(--ink2);
-    flex-shrink: 0;
-  }
-
-  .student-btn.active .student-avatar {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: white;
-  }
-
-  .progress-ring-wrap {
-    margin-bottom: 8px;
-  }
-
-  .progress-mini {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-
-  .progress-mini-label {
-    font-size: 12px;
-    color: var(--ink2);
-  }
-
-  .progress-mini-pct {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--ink3);
-  }
-
-  .progress-bar {
-    height: 4px;
-    background: var(--surface2);
-    border-radius: 2px;
-    overflow: hidden;
-    margin-top: 4px;
-  }
-
-  .progress-fill {
-    height: 100%;
-    border-radius: 2px;
-    transition: width 0.5s ease;
-  }
-
-  .legend-row {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 8px;
-    font-size: 12px;
-    color: var(--ink2);
-  }
-
-  .legend-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  /* MAIN CONTENT */
-  .content { min-width: 0; }
-
-  .student-header {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin-bottom: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-shadow: var(--shadow);
-  }
-
-  .student-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 24px;
-  }
-
-  .student-meta {
-    font-size: 13px;
-    color: var(--ink3);
-    margin-top: 2px;
-  }
-
-  .export-btn {
-    background: var(--ink);
-    color: var(--bg);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background 0.15s;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .export-btn:hover { background: var(--accent); }
-
-  /* DOMAIN CARDS */
-  .domain-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    margin-bottom: 16px;
-    overflow: hidden;
-    box-shadow: var(--shadow);
-  }
-
-  .domain-header {
-    padding: 16px 20px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    user-select: none;
-  }
-
-  .domain-icon {
-    width: 36px;
-    height: 36px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-    flex-shrink: 0;
-  }
-
-  .domain-icon.reading { background: var(--tag-r); }
-  .domain-icon.writing { background: var(--tag-w); }
-  .domain-icon.language { background: var(--tag-l); }
-
-  .domain-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    flex: 1;
-  }
-
-  .domain-title.reading { color: var(--reading); }
-  .domain-title.writing { color: var(--writing); }
-  .domain-title.language { color: var(--language); }
-
-  .domain-chevron {
-    color: var(--ink3);
-    font-size: 12px;
-    transition: transform 0.2s;
-  }
-
-  .domain-card.collapsed .domain-chevron { transform: rotate(-90deg); }
-
-  .domain-body { padding: 20px; }
-  .domain-card.collapsed .domain-body { display: none; }
-
-  /* SKILL ROWS */
-  .skill-row {
-    display: grid;
-    grid-template-columns: 1fr 180px 1fr;
-    gap: 16px;
-    align-items: start;
-    padding: 14px 0;
-    border-bottom: 1px dashed var(--border);
-  }
-
-  .skill-row:last-child { border-bottom: none; padding-bottom: 0; }
-
-  .skill-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--ink);
-    line-height: 1.4;
-  }
-
-  .skill-sub {
-    font-size: 11px;
-    color: var(--ink3);
-    margin-top: 3px;
-    line-height: 1.5;
-  }
-
-  .rating-group {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .rating-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--ink3);
-    margin-bottom: 4px;
-  }
-
-  .rating-pills {
-    display: flex;
-    gap: 4px;
-  }
-
-  .pill {
-    padding: 4px 10px;
-    border-radius: 20px;
-    border: 1.5px solid var(--border);
-    font-size: 11px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.12s;
-    color: var(--ink3);
-    background: transparent;
-    white-space: nowrap;
-  }
-
-  .pill:hover { border-color: var(--ink2); color: var(--ink2); }
-  .pill.selected-1 { background: #FEE2E2; border-color: #EF4444; color: #B91C1C; }
-  .pill.selected-2 { background: #FEF3C7; border-color: #F59E0B; color: #92400E; }
-  .pill.selected-3 { background: #D1FAE5; border-color: #10B981; color: #065F46; }
-  .pill.selected-nd { background: var(--surface2); border-color: var(--border); color: var(--ink3); }
-
-  .notes-area {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-  }
-
-  .notes-textarea {
-    width: 100%;
-    padding: 8px 10px;
-    background: var(--bg);
-    border: 1.5px solid var(--border);
-    border-radius: 6px;
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 12px;
-    color: var(--ink);
-    resize: vertical;
-    min-height: 54px;
-    line-height: 1.5;
-    transition: border-color 0.15s;
-    outline: none;
-  }
-
-  .notes-textarea:focus { border-color: var(--ink2); }
-  .notes-textarea::placeholder { color: var(--ink3); }
-
-  .data-source-row {
-    display: flex;
-    gap: 6px;
-    flex-wrap: wrap;
-  }
-
-  .source-chip {
-    padding: 3px 8px;
-    border-radius: 4px;
-    border: 1px solid var(--border);
-    font-size: 10px;
-    font-family: 'DM Mono', monospace;
-    cursor: pointer;
-    color: var(--ink3);
-    transition: all 0.12s;
-    background: transparent;
-  }
-
-  .source-chip:hover { color: var(--ink2); border-color: var(--ink2); }
-  .source-chip.selected { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-
-  /* COLLECTION METHOD SECTION */
-  .method-section {
-    background: var(--surface2);
-    border-radius: 6px;
-    padding: 14px 16px;
-    margin-top: 8px;
-  }
-
-  .method-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--ink3);
-    margin-bottom: 10px;
-  }
-
-  .method-checks {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .method-check {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    font-size: 12px;
-    color: var(--ink2);
-    cursor: pointer;
-  }
-
-  .method-check input[type="checkbox"] {
-    margin-top: 2px;
-    accent-color: var(--accent2);
-    flex-shrink: 0;
-    cursor: pointer;
-  }
-
-  /* SUMMARY PANEL */
-  .summary-card {
-    background: var(--ink);
-    color: var(--bg);
-    border-radius: 8px;
-    padding: 20px 24px;
-    margin-top: 20px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .summary-card::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0;
-    width: 120px; height: 120px;
-    background: radial-gradient(circle, rgba(194,64,26,0.3) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .summary-title {
-    font-family: 'DM Serif Display', serif;
-    font-size: 16px;
-    color: var(--bg);
-    margin-bottom: 14px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .overall-textarea {
-    width: 100%;
-    padding: 10px 12px;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 6px;
-    color: var(--bg);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 13px;
-    resize: vertical;
-    min-height: 80px;
-    outline: none;
-    transition: border-color 0.15s;
-    line-height: 1.6;
-  }
-
-  .overall-textarea:focus { border-color: rgba(255,255,255,0.4); }
-  .overall-textarea::placeholder { color: rgba(245,240,232,0.35); }
-
-  .priority-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 14px;
-  }
-
-  .priority-box {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
-    padding: 12px;
-  }
-
-  .priority-box label {
-    display: block;
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: rgba(245,240,232,0.5);
-    margin-bottom: 6px;
-  }
-
-  .priority-select {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: var(--bg);
-    font-family: 'Instrument Sans', sans-serif;
-    font-size: 13px;
-    outline: none;
-    cursor: pointer;
-  }
-
-  .priority-select option { background: #1C1814; color: #F5F0E8; }
-
-  /* NOTIFICATION */
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    right: 28px;
-    background: var(--ink);
-    color: var(--bg);
-    padding: 12px 20px;
-    border-radius: 6px;
-    font-size: 13px;
-    border-left: 3px solid var(--accent2);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(100px);
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 1000;
-  }
-
-  .toast.show { transform: translateY(0); opacity: 1; }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .main { grid-template-columns: 1fr; padding: 20px; }
-    .sidebar { position: static; }
-    .skill-row { grid-template-columns: 1fr; gap: 10px; }
-    .header { padding: 20px; flex-direction: column; }
-  }
-
-  .completion-indicator {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: auto;
-  }
-
-  .dot-indicator {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--border);
-  }
-
-  .dot-indicator.filled { background: var(--accent2); }
-
-  /* ALL STUDENTS VIEW */
-  .all-view-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 20px;
-  }
-
-  .student-summary-card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    padding: 18px;
-    cursor: pointer;
-    transition: all 0.15s;
-    box-shadow: var(--shadow);
-  }
-
-  .student-summary-card:hover {
-    border-color: var(--ink2);
-    box-shadow: var(--shadow-lg);
-    transform: translateY(-1px);
-  }
-
-  .sscard-name {
-    font-family: 'DM Serif Display', serif;
-    font-size: 18px;
-    margin-bottom: 12px;
-  }
-
-  .sscard-bars { display: flex; flex-direction: column; gap: 8px; }
-
-  .sscard-bar-row { display: flex; align-items: center; gap: 8px; }
-
-  .sscard-bar-label {
-    font-size: 11px;
-    color: var(--ink3);
-    width: 60px;
-    flex-shrink: 0;
-  }
-
-  .sscard-bar-track {
-    flex: 1;
-    height: 6px;
-    background: var(--surface2);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .sscard-bar-fill {
-    height: 100%;
-    border-radius: 3px;
-    transition: width 0.5s ease;
-  }
-
-  @media (max-width: 700px) {
-    .all-view-grid { grid-template-columns: 1fr; }
-    .priority-row { grid-template-columns: 1fr; }
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HWEDI.TECH</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #050816;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(15px);
+      background: rgba(0,0,0,0.25);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      z-index: 1000;
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 0;
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .logo span {
+      color: #22d3ee;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 30px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #d1d5db;
+      transition: 0.3s;
+      font-weight: 500;
+    }
+
+    .nav-links a:hover {
+      color: #22d3ee;
+    }
+
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(34,211,238,0.2), transparent 70%);
+      top: -150px;
+      right: -150px;
+      z-index: 0;
+    }
+
+    .hero-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 10px 20px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #67e8f9;
+      margin-bottom: 25px;
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: 72px;
+      line-height: 1.1;
+      margin-bottom: 25px;
+      font-weight: 900;
+    }
+
+    .hero h1 span {
+      color: #22d3ee;
+    }
+
+    .hero p {
+      color: #cbd5e1;
+      line-height: 1.8;
+      margin-bottom: 35px;
+      font-size: 18px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 16px 30px;
+      border-radius: 16px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      transition: 0.3s;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .btn-primary {
+      background: #22d3ee;
+      color: black;
+      box-shadow: 0 10px 30px rgba(34,211,238,0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-4px);
+      background: #67e8f9;
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,255,0.05);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.1);
+      transform: translateY(-4px);
+    }
+
+    .hero-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      padding: 40px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.05);
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .stat h2 {
+      color: #22d3ee;
+      font-size: 38px;
+      margin-bottom: 10px;
+    }
+
+    .stat p {
+      color: #cbd5e1;
+      font-size: 14px;
+      margin: 0;
+    }
+
+    section {
+      padding: 120px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title h2 {
+      font-size: 52px;
+      margin-bottom: 15px;
+      font-weight: 900;
+    }
+
+    .section-title p {
+      color: #94a3b8;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    .clients-grid,
+    .services-grid,
+    .projects-grid {
+      display: grid;
+      gap: 25px;
+    }
+
+    .clients-grid {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    }
+
+    .services-grid,
+    .projects-grid {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
+
+    .client,
+    .service-card,
+    .project-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      transition: 0.4s;
+    }
+
+    .client {
+      padding: 30px 20px;
+      text-align: center;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .client:hover,
+    .service-card:hover,
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: rgba(34,211,238,0.5);
+      background: rgba(34,211,238,0.08);
+    }
+
+    .service-card,
+    .project-card {
+      padding: 35px;
+    }
+
+    .service-icon {
+      font-size: 54px;
+      margin-bottom: 20px;
+    }
+
+    .service-card h3,
+    .project-card h3 {
+      font-size: 28px;
+      margin-bottom: 18px;
+    }
+
+    .service-card p,
+    .project-card p {
+      color: #cbd5e1;
+      line-height: 1.7;
+    }
+
+    .project-image {
+      height: 220px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, rgba(34,211,238,0.2), rgba(59,130,246,0.2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 70px;
+      margin-bottom: 25px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: center;
+    }
+
+    .about-card,
+    .contact-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 32px;
+      padding: 45px;
+      backdrop-filter: blur(20px);
+    }
+
+    .about-card h3 {
+      color: #22d3ee;
+      font-size: 38px;
+      margin-bottom: 25px;
+    }
+
+    .about-card p {
+      color: #cbd5e1;
+      line-height: 1.9;
+      margin-bottom: 20px;
+    }
+
+    .about-features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .feature {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 30px;
+    }
+
+    .feature .icon {
+      font-size: 50px;
+      margin-bottom: 15px;
+    }
+
+    .feature h4 {
+      font-size: 22px;
+      margin-bottom: 12px;
+    }
+
+    .feature p {
+      color: #94a3b8;
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .contact-card {
+      text-align: center;
+      background: linear-gradient(135deg, rgba(34,211,238,0.08), rgba(59,130,246,0.08));
+    }
+
+    .contact-card h2 {
+      font-size: 52px;
+      margin-bottom: 20px;
+    }
+
+    .contact-card p {
+      color: #cbd5e1;
+      line-height: 1.8;
+      max-width: 700px;
+      margin: auto auto 40px;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      color: #94a3b8;
+    }
+
+    footer {
+      padding: 40px 0;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      text-align: center;
+      color: #64748b;
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 1s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media(max-width: 900px) {
+      .hero-content,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 48px;
+      }
+
+      .section-title h2,
+      .contact-card h2 {
+        font-size: 38px;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .about-features {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <div class="header-eyebrow">Tier 2 Intervention Planning · Lexi's Request</div>
-    <h1 class="header-title">Student Assessment Data Tracker</h1>
-    <div class="header-sub">Leen · Tawfik · Mohamed A — 9th Grade Readiness</div>
-  </div>
-  <div class="deadline-badge">
-    <span class="label">Deadline</span>
-    <span class="time">Thu 1:00 PM</span>
-  </div>
-</div>
+  <nav>
+    <div class="container nav-content">
+      <div class="logo">HWEDI<span>.TECH</span></div>
 
-<div class="main">
-  <!-- SIDEBAR -->
-  <div class="sidebar">
-    <div class="sidebar-section">
-      <div class="sidebar-title">Students</div>
-      <button class="student-btn active" onclick="switchStudent('all')">
-        <div class="student-avatar" style="font-size:11px;">ALL</div>
-        Overview
-      </button>
-      <button class="student-btn" onclick="switchStudent('leen')">
-        <div class="student-avatar">L</div>
-        Leen
-      </button>
-      <button class="student-btn" onclick="switchStudent('tawfik')">
-        <div class="student-avatar">T</div>
-        Tawfik
-      </button>
-      <button class="student-btn" onclick="switchStudent('mohameda')">
-        <div class="student-avatar">M</div>
-        Mohamed A
-      </button>
-    </div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-title">Progress</div>
-      <div id="sidebar-progress"></div>
-    </div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-title">Domain Legend</div>
-      <div class="legend-row"><div class="legend-dot" style="background:var(--reading)"></div> Reading</div>
-      <div class="legend-row"><div class="legend-dot" style="background:var(--writing)"></div> Writing</div>
-      <div class="legend-row"><div class="legend-dot" style="background:var(--language)"></div> Language Processing</div>
-    </div>
-
-    <div class="sidebar-section">
-      <div class="sidebar-title">Days Remaining</div>
-      <div style="font-family:'DM Serif Display',serif;font-size:32px;color:var(--accent);" id="days-remaining">—</div>
-      <div style="font-size:12px;color:var(--ink3);margin-top:4px;">teaching days</div>
-    </div>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div class="content" id="main-content">
-    <!-- rendered by JS -->
-  </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// ─── DATA MODEL ────────────────────────────────────────────────────────────────
-const STUDENTS = ['leen','tawfik','mohameda'];
-const STUDENT_NAMES = { leen:'Leen', tawfik:'Tawfik', mohameda:'Mohamed A' };
-
-const DOMAINS = [
-  {
-    id:'reading', label:'Reading', icon:'📖', cls:'reading',
-    skills:[
-      {
-        id:'fluency_comp',
-        label:'Instructional Reading Level',
-        sub:'Fluency + comprehension baseline',
-        ratingKey:'fluency_comp_rating',
-        notesKey:'fluency_comp_notes',
-        sourcesKey:'fluency_comp_sources',
-      },
-      {
-        id:'main_idea',
-        label:'Main Idea Identification',
-        sub:'Can student identify central ideas independently?',
-        ratingKey:'main_idea_rating',
-        notesKey:'main_idea_notes',
-        sourcesKey:'main_idea_sources',
-      },
-      {
-        id:'inference',
-        label:'Basic Inferences',
-        sub:'Drawing conclusions from text',
-        ratingKey:'inference_rating',
-        notesKey:'inference_notes',
-        sourcesKey:'inference_sources',
-      },
-      {
-        id:'vocab',
-        label:'Grade-Level Vocabulary',
-        sub:'With and without support — note difference',
-        ratingKey:'vocab_rating',
-        notesKey:'vocab_notes',
-        sourcesKey:'vocab_sources',
-      },
-    ],
-    methods:[
-      'Use existing class texts at varying levels (no separate testing block)',
-      'MAP data (partial — note limitations)',
-      'Observe during read-alouds or shared reading',
-      'Running record or miscue analysis',
-    ]
-  },
-  {
-    id:'writing', label:'Writing', icon:'✍️', cls:'writing',
-    skills:[
-      {
-        id:'sentences',
-        label:'Complete Sentences',
-        sub:'Consistently produces grammatically complete sentences',
-        ratingKey:'sentences_rating',
-        notesKey:'sentences_notes',
-        sourcesKey:'sentences_sources',
-      },
-      {
-        id:'paragraphs',
-        label:'Organized Paragraphs',
-        sub:'Logical structure: topic, supporting detail, conclusion',
-        ratingKey:'paragraphs_rating',
-        notesKey:'paragraphs_notes',
-        sourcesKey:'paragraphs_sources',
-      },
-      {
-        id:'prompt_response',
-        label:'Written Response to Prompts',
-        sub:'Responds meaningfully to open-ended prompts',
-        ratingKey:'prompt_response_rating',
-        notesKey:'prompt_response_notes',
-        sourcesKey:'prompt_response_sources',
-      },
-      {
-        id:'independence',
-        label:'Independence vs. Scaffold Reliance',
-        sub:'Compare independent vs. supported attempt (same assignment)',
-        ratingKey:'independence_rating',
-        notesKey:'independence_notes',
-        sourcesKey:'independence_sources',
-      },
-    ],
-    methods:[
-      'Short scaffolded writing samples (1–2 per week max)',
-      'Modify one upcoming assignment: independent attempt + supported attempt',
-      'Collect existing classwork samples (avoid separate testing block)',
-      'Final exam writing portions',
-    ]
-  },
-  {
-    id:'language', label:'Language Processing', icon:'🧠', cls:'language',
-    skills:[
-      {
-        id:'multi_step',
-        label:'Multi-Step Directions',
-        sub:'Can student follow sequential instructions without prompting?',
-        ratingKey:'multi_step_rating',
-        notesKey:'multi_step_notes',
-        sourcesKey:'multi_step_sources',
-      },
-      {
-        id:'chunked',
-        label:'Chunked vs. Non-Chunked Instruction',
-        sub:'Note performance difference — does chunking help significantly?',
-        ratingKey:'chunked_rating',
-        notesKey:'chunked_notes',
-        sourcesKey:'chunked_sources',
-      },
-    ],
-    methods:[
-      'Observe during regular instruction — no separate block needed',
-      'Give the same instruction both ways; note performance difference',
-      'Track in-class responses to directions across subject areas',
-    ]
-  }
-];
-
-const SOURCES = ['Classwork','Final Exam','MAP','Observation','Writing Sample','Read-Aloud','Other'];
-const RATINGS = [
-  { val:'1', label:'Below', cls:'selected-1' },
-  { val:'2', label:'Emerging', cls:'selected-2' },
-  { val:'3', label:'Meeting', cls:'selected-3' },
-  { val:'nd', label:'N/D', cls:'selected-nd' },
-];
-
-// Load from localStorage
-function loadData() {
-  try { return JSON.parse(localStorage.getItem('tier2_data') || '{}'); } catch(e) { return {}; }
-}
-
-function saveData(data) {
-  localStorage.setItem('tier2_data', JSON.stringify(data));
-}
-
-let appData = loadData();
-let currentStudent = 'all';
-
-function get(student, key, fallback='') {
-  return (appData[student] && appData[student][key] !== undefined) ? appData[student][key] : fallback;
-}
-
-function set(student, key, value) {
-  if (!appData[student]) appData[student] = {};
-  appData[student][key] = value;
-  saveData(appData);
-  updateSidebarProgress();
-}
-
-// ─── COMPUTE PROGRESS ──────────────────────────────────────────────────────────
-function getProgress(student) {
-  const total = DOMAINS.reduce((s,d) => s + d.skills.length, 0);
-  let filled = 0;
-  DOMAINS.forEach(d => d.skills.forEach(sk => {
-    if (get(student, sk.ratingKey, '') !== '') filled++;
-  }));
-  return { pct: total > 0 ? Math.round(filled/total*100) : 0, filled, total };
-}
-
-function updateSidebarProgress() {
-  const el = document.getElementById('sidebar-progress');
-  if (!el) return;
-  el.innerHTML = STUDENTS.map(s => {
-    const { pct } = getProgress(s);
-    const color = pct === 100 ? 'var(--accent2)' : pct > 50 ? 'var(--gold)' : 'var(--accent)';
-    return `
-      <div class="progress-mini">
-        <span class="progress-mini-label">${STUDENT_NAMES[s]}</span>
-        <span class="progress-mini-pct" style="color:${color}">${pct}%</span>
+      <div class="nav-links">
+        <a href="#about">About</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#clients">Clients</a>
+        <a href="#contact">Contact</a>
       </div>
-      <div class="progress-bar" style="margin-bottom:12px">
-        <div class="progress-fill" style="width:${pct}%;background:${color}"></div>
-      </div>`;
-  }).join('');
-}
+    </div>
+  </nav>
 
-// ─── RENDER ────────────────────────────────────────────────────────────────────
-function renderAll() {
-  const el = document.getElementById('main-content');
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="fade-up">
+        <div class="badge">Software Engineering • Full Stack Development • Cloud Systems</div>
 
-  // Overview cards
-  let html = `<div class="all-view-grid">`;
-  STUDENTS.forEach(s => {
-    const { pct } = getProgress(s);
-    const dPcts = DOMAINS.map(d => {
-      const total = d.skills.length;
-      let filled = d.skills.filter(sk => get(s, sk.ratingKey,'') !== '').length;
-      return { label: d.label, cls: d.cls, pct: Math.round(filled/total*100) };
-    });
-    html += `
-      <div class="student-summary-card" onclick="switchStudent('${s}')">
-        <div class="sscard-name">${STUDENT_NAMES[s]}</div>
-        <div style="font-family:'DM Mono',monospace;font-size:11px;color:var(--ink3);margin-bottom:10px;">Overall ${pct}% complete</div>
-        <div class="sscard-bars">
-          ${dPcts.map(d => `
-            <div class="sscard-bar-row">
-              <div class="sscard-bar-label">${d.label}</div>
-              <div class="sscard-bar-track">
-                <div class="sscard-bar-fill" style="width:${d.pct}%;background:var(--${d.cls})"></div>
-              </div>
-            </div>`).join('')}
+        <h1>
+          Building <span>Modern</span><br>Software Solutions
+        </h1>
+
+        <p>
+          Designing scalable software platforms, enterprise systems, and high-performance digital products for businesses and international organizations.
+        </p>
+
+        <div class="buttons">
+          <a href="#projects" class="btn btn-primary">View Projects</a>
+          <a href="#contact" class="btn btn-secondary">Contact Me</a>
         </div>
-      </div>`;
-  });
-  html += `</div>`;
-
-  // Lexi's note
-  html += `
-    <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:20px 24px;margin-bottom:0;box-shadow:var(--shadow)">
-      <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);margin-bottom:12px;">📨 Lexi's Data Collection Principles</div>
-      <div style="display:grid;gap:8px;">
-        ${[
-          'Avoid "gut feelings" — use qualitative or quantitative data beyond MAP',
-          'Use existing class texts at varying levels — no separate testing block required',
-          'Short, scaffolded writing samples (1–2 per week max)',
-          'Modify one upcoming assignment to include: independent attempt + supported attempt',
-          'Bushra has been added to support collection efforts',
-        ].map(p => `<div style="display:flex;gap:10px;align-items:flex-start;font-size:13px;color:var(--ink2)"><span style="color:var(--accent2);margin-top:2px">✓</span>${p}</div>`).join('')}
       </div>
-    </div>`;
 
-  el.innerHTML = html;
-}
+      <div class="hero-card fade-up">
+        <div class="stats-grid">
+          <div class="stat">
+            <h2>7+</h2><p>Years Experience</p>
+          </div>
 
-function renderStudent(student) {
-  const el = document.getElementById('main-content');
-  const name = STUDENT_NAMES[student];
-  const { pct, filled, total } = getProgress(student);
+          <div class="stat">
+            <h2>16+</h2><p>Projects Delivered</p>
+          </div>
 
-  let html = `
-    <div class="student-header">
-      <div>
-        <div class="student-name">${name}</div>
-        <div class="student-meta">Tier 2 · 9th Grade Readiness Assessment · ${filled}/${total} skills rated</div>
-      </div>
-      <div style="display:flex;gap:10px;align-items:center">
-        <div style="text-align:right;margin-right:8px">
-          <div style="font-family:'DM Mono',monospace;font-size:20px;color:${pct===100?'var(--accent2)':pct>50?'var(--gold)':'var(--accent)'}">${pct}%</div>
-          <div style="font-size:11px;color:var(--ink3)">complete</div>
+          <div class="stat">
+            <h2>12+</h2><p>Production Systems</p>
+          </div>
+
+          <div class="stat">
+            <h2>99.9%</h2>
+            <p>Uptime Focus</p>
+          </div>
         </div>
-        <button class="export-btn" onclick="exportStudent('${student}')">⬇ Export Notes</button>
       </div>
-    </div>`;
+    </div>
+  </section>
 
-  DOMAINS.forEach(domain => {
-    html += `<div class="domain-card" id="domain-${student}-${domain.id}">
-      <div class="domain-header" onclick="toggleDomain('${student}','${domain.id}')">
-        <div class="domain-icon ${domain.cls}">${domain.icon}</div>
-        <div class="domain-title ${domain.cls}">${domain.label}</div>
-        <div class="completion-indicator">
-          ${domain.skills.map(sk => `<div class="dot-indicator ${get(student,sk.ratingKey,'')!==''?'filled':''}"></div>`).join('')}
+  <section id="clients">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Selected Projects</h2>
+        <p>
+          Experience building practical business platforms and internal software systems.
+        </p>
+      </div>
+
+      <div class="clients-grid">
+        <div class="client fade-up">Internal Course Systems</div>
+        <div class="client fade-up">Digital Commerce Platforms</div>
+        <div class="client fade-up">Ticketing Systems</div>
+        <div class="client fade-up">Internal Communication Systems</div>
+        <div class="client fade-up">Business Dashboards</div>
+        <div class="client fade-up">Management Portals</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container about-grid">
+      <div class="about-card fade-up">
+        <h3>About Hwedi</h3>
+
+        <p>
+          Software engineer with 7+ years of experience building scalable applications, cloud systems, and modern digital platforms.
+        </p>
+
+        <p>
+          Specialized in full stack engineering, backend systems, cloud infrastructure, APIs, and modern frontend architectures.
+        </p>
+
+        <p>
+          Focused on building reliable and maintainable software with modern technologies including React, Next.js, Node.js, TypeScript, Firebase, PostgreSQL, Docker, and cloud infrastructure.
+        </p>
+      </div>
+
+      <div class="about-features">
+        <div class="feature fade-up">
+          <h4>Frontend Engineering</h4>
+          <p>Modern responsive interfaces and advanced UI systems.</p>
         </div>
-        <div class="domain-chevron">▼</div>
-      </div>
-      <div class="domain-body">`;
 
-    domain.skills.forEach(sk => {
-      const rating = get(student, sk.ratingKey, '');
-      const notes = get(student, sk.notesKey, '');
-      const sources = get(student, sk.sourcesKey, []);
-      html += `
-        <div class="skill-row">
-          <div>
-            <div class="skill-label">${sk.label}</div>
-            <div class="skill-sub">${sk.sub}</div>
-          </div>
-          <div class="rating-group">
-            <div class="rating-label">Performance Level</div>
-            <div class="rating-pills">
-              ${RATINGS.map(r => `
-                <button class="pill ${rating===r.val?r.cls:''}"
-                  onclick="setRating('${student}','${sk.ratingKey}','${r.val}','${r.cls}',this)">
-                  ${r.label}
-                </button>`).join('')}
-            </div>
-          </div>
-          <div class="notes-area">
-            <textarea class="notes-textarea" placeholder="Observations, evidence, data source…"
-              oninput="set('${student}','${sk.notesKey}',this.value)">${notes}</textarea>
-            <div class="rating-label" style="margin-top:2px">Data Source</div>
-            <div class="data-source-row">
-              ${SOURCES.map(src => `
-                <button class="source-chip ${sources.includes(src)?'selected':''}"
-                  onclick="toggleSource('${student}','${sk.sourcesKey}','${src}',this)">
-                  ${src}
-                </button>`).join('')}
-            </div>
-          </div>
-        </div>`;
+        <div class="feature fade-up">
+          <h4>Backend Systems</h4>
+          <p>Scalable APIs, authentication, and cloud-native architecture.</p>
+        </div>
+
+        <div class="feature fade-up">
+          <h4>Cloud & DevOps</h4>
+          <p>Deployment pipelines, cloud hosting, and optimization.</p>
+        </div>
+
+        <div class="feature fade-up">
+          <h4>Internal Systems</h4>
+          <p>Internal communication systems, dashboards, and workflow platforms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Services</h2>
+        <p>
+          Modern software engineering services for businesses, startups, and enterprises.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <div class="service-card fade-up">
+          <h3>Full Stack Development</h3>
+          <p>Modern scalable applications with advanced frontend and backend systems.</p>
+        </div>
+
+        <div class="service-card fade-up">
+          <h3>Frontend Engineering</h3>
+          <p>High-performance responsive interfaces with modern UI/UX architecture.</p>
+        </div>
+
+        <div class="service-card fade-up">
+          <h3>Backend & APIs</h3>
+          <p>Secure backend services, APIs, authentication, and databases.</p>
+        </div>
+
+        <div class="service-card fade-up">
+          <h3>Cloud Solutions</h3>
+          <p>Cloud infrastructure, scalable deployment, and optimization systems.</p>
+        </div>
+
+        <div class="service-card fade-up">
+          <h3>UI/UX Systems</h3>
+          <p>Clean, modern, and conversion-focused user experiences.</p>
+        </div>
+
+        <div class="service-card fade-up">
+          <h3>Internal Platforms</h3>
+          <p>Communication systems, dashboards, management portals, and workflow tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-title fade-up">
+        <h2>Projects</h2>
+        <p>
+          Modern software systems designed for operational efficiency and scalability.
+        </p>
+      </div>
+
+      <div class="projects-grid">
+        <div class="project-card fade-up">
+          <div class="project-image" style="background:linear-gradient(135deg,#0f172a,#1e293b);font-size:22px;font-weight:700;color:#22d3ee;">Internal Platform</div>
+          <h3>Internal Course System</h3>
+          <p>Platform for managing courses, content delivery, student tracking, and internal reporting.</p>
+        </div>
+
+        <div class="project-card fade-up">
+          <div class="project-image" style="background:linear-gradient(135deg,#111827,#1f2937);font-size:22px;font-weight:700;color:#22d3ee;">Commerce System</div>
+          <h3>Digital Commerce Platform</h3>
+          <p>Modern commerce platform with product management, payment integration, and order tracking.</p>
+        </div>
+
+        <div class="project-card fade-up">
+          <div class="project-image" style="background:linear-gradient(135deg,#0b1120,#172554);font-size:22px;font-weight:700;color:#22d3ee;">Ticketing System</div>
+          <h3>Ticketing System</h3>
+          <p>Ticketing and support management system with workflow automation and reporting tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="contact-card fade-up">
+        <h2>Let’s Build Something Meaningful</h2>
+
+        <p>
+          Available for software engineering, enterprise platforms, cloud systems, AI integration, and digital product development.
+        </p>
+
+        <div class="buttons" style="justify-content:center;">
+          <a href="mailto:contact@hwedi.tech" class="btn btn-primary">Contact Me</a>
+          <a href="#" class="btn btn-secondary">Download Resume</a>
+        </div>
+
+        <div class="contact-info">
+          <span>📧 contact@hwedi.tech</span>
+          <span>🌍 Libya</span>
+          <span>💻 hwedi.tech</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2026 HWEDI.TECH — Software Engineering & Digital Innovation
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.15
     });
 
-    // Collection methods
-    html += `<div class="method-section">
-      <div class="method-title">Suggested Collection Methods</div>
-      <div class="method-checks">
-        ${domain.methods.map((m,i) => {
-          const key = `${domain.id}_method_${i}`;
-          const checked = get(student, key, false);
-          return `<label class="method-check">
-            <input type="checkbox" ${checked?'checked':''} onchange="set('${student}','${key}',this.checked)">
-            ${m}
-          </label>`;
-        }).join('')}
-      </div>
-    </div>`;
-
-    html += `</div></div>`; // domain-body, domain-card
-  });
-
-  // Summary
-  const summary = get(student, 'overall_summary','');
-  const urgency = get(student, 'urgency', '');
-  const support = get(student, 'support_type', '');
-
-  html += `
-    <div class="summary-card">
-      <div class="summary-title">📋 Overall Summary & Recommendations</div>
-      <textarea class="overall-textarea" placeholder="Summarize findings, key patterns, immediate needs, and recommended interventions for 9th grade…"
-        oninput="set('${student}','overall_summary',this.value)">${summary}</textarea>
-      <div class="priority-row">
-        <div class="priority-box">
-          <label>Urgency Level</label>
-          <select class="priority-select" onchange="set('${student}','urgency',this.value)">
-            <option value="" ${urgency===''?'selected':''}>Select…</option>
-            <option value="critical" ${urgency==='critical'?'selected':''}>🔴 Critical — needs immediate plan</option>
-            <option value="high" ${urgency==='high'?'selected':''}>🟠 High — plan before 9th grade</option>
-            <option value="moderate" ${urgency==='moderate'?'selected':''}>🟡 Moderate — monitor closely</option>
-            <option value="low" ${urgency==='low'?'selected':''}>🟢 Low — continue Tier 2 supports</option>
-          </select>
-        </div>
-        <div class="priority-box">
-          <label>Recommended Support Type</label>
-          <select class="priority-select" onchange="set('${student}','support_type',this.value)">
-            <option value="" ${support===''?'selected':''}>Select…</option>
-            <option value="intensive" ${support==='intensive'?'selected':''}>Intensive Intervention (Tier 3)</option>
-            <option value="tier2" ${support==='tier2'?'selected':''}>Continue Tier 2 with modifications</option>
-            <option value="scaffolds" ${support==='scaffolds'?'selected':''}>Targeted scaffolds in-class</option>
-            <option value="sped" ${support==='sped'?'selected':''}>Refer for SpEd evaluation</option>
-            <option value="ell" ${support==='ell'?'selected':''}>ELL-specific supports</option>
-          </select>
-        </div>
-      </div>
-    </div>`;
-
-  el.innerHTML = html;
-}
-
-// ─── INTERACTIONS ───────────────────────────────────────────────────────────────
-function toggleDomain(student, domainId) {
-  const card = document.getElementById(`domain-${student}-${domainId}`);
-  card.classList.toggle('collapsed');
-}
-
-function setRating(student, key, val, cls, btn) {
-  set(student, key, val);
-  const pills = btn.closest('.rating-pills').querySelectorAll('.pill');
-  pills.forEach(p => { p.className = 'pill'; });
-  btn.classList.add(cls);
-  // refresh dot indicators
-  const dots = document.querySelectorAll('.dot-indicator');
-  // re-render header dots
-  DOMAINS.forEach(d => d.skills.forEach(sk => {
-    if (sk.ratingKey === key) {
-      // update completion dots in domain header
-      renderDomainDots(student, d);
-    }
-  }));
-  showToast('Rating saved');
-}
-
-function renderDomainDots(student, domain) {
-  const header = document.querySelector(`#domain-${student}-${domain.id} .completion-indicator`);
-  if (!header) return;
-  header.innerHTML = domain.skills.map(sk =>
-    `<div class="dot-indicator ${get(student,sk.ratingKey,'')!==''?'filled':''}"></div>`
-  ).join('');
-}
-
-function toggleSource(student, key, src, btn) {
-  let sources = get(student, key, []);
-  if (!Array.isArray(sources)) sources = [];
-  if (sources.includes(src)) {
-    sources = sources.filter(s => s !== src);
-    btn.classList.remove('selected');
-  } else {
-    sources.push(src);
-    btn.classList.add('selected');
-  }
-  set(student, key, sources);
-}
-
-function switchStudent(id) {
-  currentStudent = id;
-  document.querySelectorAll('.student-btn').forEach(b => b.classList.remove('active'));
-  const idx = ['all','leen','tawfik','mohameda'].indexOf(id);
-  document.querySelectorAll('.student-btn')[idx].classList.add('active');
-  if (id === 'all') renderAll();
-  else renderStudent(id);
-  updateSidebarProgress();
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._timer);
-  t._timer = setTimeout(() => t.classList.remove('show'), 2000);
-}
-
-function exportStudent(student) {
-  const name = STUDENT_NAMES[student];
-  let text = `TIER 2 ASSESSMENT DATA — ${name.toUpperCase()}\n`;
-  text += `Generated: ${new Date().toLocaleString()}\n`;
-  text += `${'='.repeat(50)}\n\n`;
-
-  DOMAINS.forEach(d => {
-    text += `${d.label.toUpperCase()}\n${'-'.repeat(30)}\n`;
-    d.skills.forEach(sk => {
-      const rating = get(student, sk.ratingKey, 'Not rated');
-      const rLabel = RATINGS.find(r=>r.val===rating)?.label || rating;
-      const notes = get(student, sk.notesKey, '');
-      const sources = get(student, sk.sourcesKey, []);
-      text += `\n${sk.label}\n`;
-      text += `  Level: ${rLabel}\n`;
-      if (notes) text += `  Notes: ${notes}\n`;
-      if (sources.length) text += `  Sources: ${sources.join(', ')}\n`;
+    document.querySelectorAll('.fade-up').forEach((el) => {
+      observer.observe(el);
     });
-    text += `\n`;
-  });
+  </script>
 
-  const summary = get(student, 'overall_summary','');
-  const urgency = get(student, 'urgency','');
-  const support = get(student, 'support_type','');
-  text += `OVERALL SUMMARY\n${'-'.repeat(30)}\n`;
-  text += `Urgency: ${urgency || 'Not set'}\n`;
-  text += `Support Type: ${support || 'Not set'}\n`;
-  if (summary) text += `\nNotes:\n${summary}\n`;
-
-  const blob = new Blob([text], { type:'text/plain' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `${name.replace(' ','_')}_Assessment_${new Date().toISOString().slice(0,10)}.txt`;
-  a.click();
-  showToast('Notes exported!');
-}
-
-// Days remaining (rough estimate — 8 teaching days from now)
-document.getElementById('days-remaining').textContent = '< 8';
-
-// Init
-updateSidebarProgress();
-renderAll();
-</script>
 </body>
 </html>
