@@ -33,6 +33,7 @@ Always start with `git fetch origin` and work from the latest origin/main. Ignor
    - `git push origin HEAD:main`
 3. If you cannot push to main from here, open a pull request and merge it yourself. If that is blocked too, tell the owner the single click they need to make. Never force-push.
 4. Tell the owner what changed and that it will be live in about a minute. Tell them to press Ctrl+F5 on the site (browsers keep the old files for up to ten minutes).
+5. When you publish a brand-new address (a new folder or a new .html file), wait three minutes before you open it or check it. If anyone asks for it before GitHub has finished, the "not found" answer can stick to that exact address for a long time. Adding `?x=1` to the address shows the real page meanwhile, and the next push clears it.
 
 ## What gets published
 
