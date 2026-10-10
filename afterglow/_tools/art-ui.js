@@ -5,23 +5,23 @@ ART.bg_stars = () => {
   const frames = [];
   for (let f = 0; f < 3; f++) {
     const g = mk(N, N);
-    dgrad(g, 0, 0, N, N, [[0, '#000000'], [1, '#000033']], (x, y) => { const a = Math.sin(2 * Math.PI * (x / N + .1)) * Math.sin(2 * Math.PI * (y / N + .35)), b = Math.sin(4 * Math.PI * (x - y) / N); return Math.max(0, a * .28 + b * .1 - .04); });
+    dgrad(g, 0, 0, N, N, [[0, '#000000'], [1, '#1a0820']], (x, y) => { const a = Math.sin(2 * Math.PI * (x / N + .1)) * Math.sin(2 * Math.PI * (y / N + .35)), b = Math.sin(4 * Math.PI * (x - y) / N); return Math.max(0, a * .28 + b * .1 - .04); });
     for (const s of stars) {
       const t = s.ph === f, W = (v) => ((v % N) + N) % N;
-      if (s.m < .58) px(g, s.x, s.y, t ? '#666699' : '#333366');
-      else if (s.m < .87) px(g, s.x, s.y, t ? '#ffffff' : (s.c < .34 ? '#9999cc' : s.c < .67 ? '#cccc99' : '#99cccc'));
-      else { const core = t ? '#ffffff' : '#ccccff', arm = t ? '#6666cc' : '#333366';
-        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { px(g, W(s.x + dx), W(s.y + dy), arm); if (t && s.m > .94) px(g, W(s.x + dx * 2), W(s.y + dy * 2), '#333366'); }
+      if (s.m < .58) px(g, s.x, s.y, t ? '#886688' : '#4a2a4a');
+      else if (s.m < .87) px(g, s.x, s.y, t ? '#ffffff' : (s.c < .34 ? '#cc99c4' : s.c < .67 ? '#cccc99' : '#99cccc'));
+      else { const core = t ? '#ffffff' : '#ffd6f2', arm = t ? '#aa66aa' : '#4a2a4a';
+        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) { px(g, W(s.x + dx), W(s.y + dy), arm); if (t && s.m > .94) px(g, W(s.x + dx * 2), W(s.y + dy * 2), '#4a2a4a'); }
         px(g, s.x, s.y, core); }
     }
     frames.push(g);
   }
   return { frames, delay: 620 };
 };
-ART.hdr = () => { const g = mk(4, 15); dgrad(g, 0, 0, 4, 15, [[0, '#3366cc'], [.45, '#003399'], [1, '#000066']]); hl(g, 0, 0, 4, '#6699ff'); hl(g, 0, 14, 4, '#000033'); return g; };
+ART.hdr = () => { const g = mk(4, 15); dgrad(g, 0, 0, 4, 15, [[0, '#8a2f8a'], [.45, '#5a1a6a'], [1, '#2e0f38']]); hl(g, 0, 0, 4, '#d07fd0'); hl(g, 0, 14, 4, '#1a0820'); return g; };
 ART.hdr_pk = () => { const g = mk(4, 15); dgrad(g, 0, 0, 4, 15, [[0, '#cc3399'], [.45, '#990066'], [1, '#330033']]); hl(g, 0, 0, 4, '#ff99cc'); hl(g, 0, 14, 4, '#330033'); return g; };
 const CHEV = ['#.#....', '.#.#...', '..#.#..', '...#.#.', '..#.#..', '.#.#...', '#.#....'];
-ART.bul = () => { const g = mk(7, 7); spr(g, 0, 0, CHEV, { '#': P.cy }); return g; };
+ART.bul = () => { const g = mk(7, 7); spr(g, 0, 0, CHEV, { '#': '#ffb38a' }); return g; };
 ART.bul_on = () => ({ frames: [0, 1].map(f => { const g = mk(7, 7); spr(g, f, 0, CHEV, { '#': f ? P.yl : P.pk2 }); return g; }), delay: 180 });
 ART.star = () => { const g = mk(7, 7); spr(g, 0, 0, ['...#...', '...#...', '.#####.', '#######', '.#####.', '..#.#..', '.#...#.'], { '#': P.yl }); px(g, 3, 3, '#fff'); return g; };
 // 7-segment counter digits, 10 cells of 11x15

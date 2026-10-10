@@ -15,7 +15,7 @@ img { max-width: 100%; }
   --ink: #575140; --ink-dim: #8a836d;
   --btn-hi: #f3eddb; --btn: #d3ccb6; --btn-lo: #98917a;
   --focus: #0033cc;
-  --glare: 1; --spill: rgba(120, 140, 255, .14); --glass: #08080b;
+  --glare: 1; --spill: rgba(255, 120, 200, .14); --glass: #08080b;
   --led-on: #5dff5d; --led-sb: #ffb000; --mag-red: #cf1f2c; --mag-tip: #d5dae2;
   --grain: .55;
   /* type */
@@ -24,8 +24,8 @@ img { max-width: 100%; }
   --f-body: Verdana, "DejaVu Sans", "Bitstream Vera Sans", Geneva, Tahoma, sans-serif;
   --f-comic: "Comic Sans MS", "Comic Relief", "Chalkboard SE", "Comic Neue", cursive;
   /* the homepage behind the glass keeps its own palette in both themes (web-safe, as nature intended) */
-  --s-black: #000000; --s-navy: #000033; --s-navy2: #000066; --s-blue: #003399; --s-line: #3366cc; --s-sky: #6699ff;
-  --s-text: #ccccff; --s-dim: #9999cc; --s-cyan: #66ffff; --s-pink: #ff66cc; --s-hot: #ff3399; --s-yellow: #ffff66;
+  --s-black: #000000; --s-navy: #1a0820; --s-navy2: #2e0f38; --s-blue: #5a1a6a; --s-line: #9a3a9a; --s-sky: #d07fd0;
+  --s-text: #f2dcef; --s-dim: #b993b6; --s-cyan: #ffb38a; --s-pink: #ff66cc; --s-hot: #ff3399; --s-yellow: #ffff66;
   --s-lime: #99ff33; --s-green: #66ff66; --s-white: #ffffff; --s-silver: #c0c0c0; --s-orange: #ff9933;
   /* on-screen display */
   --osd-bg: #0000a8; --osd-hi: #ffff55; --osd-dim: #5555ff; --osd-fg: #ffffff;
@@ -35,7 +35,7 @@ img { max-width: 100%; }
     --room: #050506; --pl-hi: #3b3a3f; --pl: #2c2b30; --pl-lo: #1b1a1e;
     --lip-t: #0c0c0e; --lip-s: #17161a; --lip-b: #34333a;
     --ink: #a9a6b2; --ink-dim: #6c6975; --btn-hi: #4c4b53; --btn: #33323a; --btn-lo: #131216;
-    --focus: #8fd0ff; --glare: .5; --spill: rgba(120, 140, 255, .22); --glass: #050507; --grain: .8;
+    --focus: #8fd0ff; --glare: .5; --spill: rgba(255, 120, 200, .22); --glass: #050507; --grain: .8;
     color-scheme: dark;
   }
 }
@@ -43,7 +43,7 @@ img { max-width: 100%; }
   --room: #050506; --pl-hi: #3b3a3f; --pl: #2c2b30; --pl-lo: #1b1a1e;
   --lip-t: #0c0c0e; --lip-s: #17161a; --lip-b: #34333a;
   --ink: #a9a6b2; --ink-dim: #6c6975; --btn-hi: #4c4b53; --btn: #33323a; --btn-lo: #131216;
-  --focus: #8fd0ff; --glare: .5; --spill: rgba(120, 140, 255, .22); --glass: #050507; --grain: .8;
+  --focus: #8fd0ff; --glare: .5; --spill: rgba(255, 120, 200, .22); --glass: #050507; --grain: .8;
   color-scheme: dark;
 }
 html, body { height: 100%; }

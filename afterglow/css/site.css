@@ -32,7 +32,7 @@ blink { animation: site-blink 1.1s steps(1) infinite; }
   .scroller::-webkit-scrollbar { width: calc(15px * var(--s, 1)); }
   .scroller::-webkit-scrollbar-track { background: var(--s-navy); box-shadow: inset calc(1px * var(--s, 1)) 0 0 var(--s-line); }
   .scroller::-webkit-scrollbar-thumb { background: var(--s-blue); border: calc(1px * var(--s, 1)) solid; border-color: var(--s-sky) var(--s-navy) var(--s-navy) var(--s-sky); }
-  .scroller::-webkit-scrollbar-thumb:hover { background: #0044cc; }
+  .scroller::-webkit-scrollbar-thumb:hover { background: #7a2a8a; }
   .scroller::-webkit-scrollbar-button:single-button { display: block; height: calc(15px * var(--s, 1)); background: var(--s-blue) center / 56% no-repeat; border: calc(1px * var(--s, 1)) solid; border-color: var(--s-sky) var(--s-navy) var(--s-navy) var(--s-sky); }
   .scroller::-webkit-scrollbar-button:single-button:vertical:decrement { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M4 2 7 6H1z' fill='%2366ffff'/%3E%3C/svg%3E"); }
   .scroller::-webkit-scrollbar-button:single-button:vertical:increment { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath d='M4 6 7 2H1z' fill='%2366ffff'/%3E%3C/svg%3E"); }
@@ -54,7 +54,7 @@ td.col-r > .box { margin-left: 6px; }
 .box > .bt::before, .box > .bt::after { content: none; }
 .box > .bc { padding: 6px 7px 7px; min-width: 0; overflow-wrap: break-word; }
 .box.pink { border-color: #cc3399; } .box.pink > .bt { background-image: url(../images/hdr_pk.gif); background-color: #990066; color: #ffddee; }
-.box.plain { background: transparent; border-style: dashed; border-color: #333399; }
+.box.plain { background: transparent; border-style: dashed; border-color: #662266; }
 
 /* --- navigation --- */
 .nav a { display: block; padding: 1px 2px 1px 13px; background: url(../images/bul.gif) 3px 5px no-repeat; color: var(--s-text); font-weight: bold; font-size: 10px; line-height: 15px; text-decoration: none; }
@@ -63,7 +63,7 @@ td.col-r > .box { margin-left: 6px; }
 
 /* --- data tables --- */
 table.dat { width: 100%; border-collapse: collapse; margin: 0 0 8px; }
-table.dat td, table.dat th { border: 1px solid #333399; padding: 2px 5px; vertical-align: top; text-align: left; }
+table.dat td, table.dat th { border: 1px solid #662266; padding: 2px 5px; vertical-align: top; text-align: left; }
 table.dat th { background: var(--s-navy2); color: var(--s-cyan); font-weight: bold; white-space: nowrap; }
 table.dat thead th { background: var(--s-blue); color: var(--s-white); }
 table.dat td.y { color: var(--s-green); } table.dat td.n { color: #ff6666; }
@@ -73,7 +73,7 @@ table.dat td.y { color: var(--s-green); } table.dat td.n { color: #ff6666; }
 .page input[type="text"], .page textarea { box-sizing: border-box; max-width: 100%; margin: 0; padding: 1px 3px; border: 2px solid; border-color: #666666 #dddddd #dddddd #666666; border-radius: 0; background: var(--s-white); color: var(--s-black); font: 11px/14px var(--f-body); }
 .page button, .page input[type="submit"], .page input[type="reset"] { margin: 0; padding: 1px 7px 2px; border: 2px solid; border-color: var(--s-white) #666666 #666666 var(--s-white); border-radius: 0; background: var(--s-silver); color: var(--s-black); font: 11px/14px var(--f-body); }
 .page button:active { border-color: #666666 var(--s-white) var(--s-white) #666666; }
-.page textarea.code { width: 100%; height: 44px; resize: none; border: 1px solid #333399; background: #00001f; color: #99ff99; font: 9px/11px "Courier New", Courier, monospace; }
+.page textarea.code { width: 100%; height: 44px; resize: none; border: 1px solid #662266; background: #12051a; color: #99ff99; font: 9px/11px "Courier New", Courier, monospace; }
 .page input[type="radio"] { width: 11px; height: 11px; margin: 0 2px 0 0; vertical-align: -1px; accent-color: var(--s-blue); }
 .page label { cursor: pointer; }
 /* phones zoom the whole page in when you tap a text box with letters under 16px, and never zoom back. on touch screens the boxes get letters just big enough to stop that */
@@ -94,20 +94,20 @@ table.dat td.y { color: var(--s-green); } table.dat td.n { color: #ff6666; }
 .wall img { display: block; }
 .awards { display: flex; flex-wrap: wrap; gap: 8px; justify-content: space-around; align-items: flex-end; text-align: center; }
 .awards figure { margin: 0; } .awards figcaption { margin-top: 3px; font-size: 9px; line-height: 11px; color: var(--s-dim); }
-.ring { text-align: center; border: 2px solid; border-color: #6666cc #000033 #000033 #6666cc; background: var(--s-navy2); padding: 5px; }
+.ring { text-align: center; border: 2px solid; border-color: #a05aa8 #1a0820 #1a0820 #a05aa8; background: var(--s-navy2); padding: 5px; }
 .ring .rl { display: flex; flex-wrap: wrap; justify-content: center; gap: 2px 10px; margin-top: 4px; }
 .player { text-align: center; }
 .lcd { display: block; margin: 0 0 4px; padding: 2px 3px; border: 2px solid; border-color: #333333 #999999 #999999 #333333; background: #0a1f0a; color: var(--s-green); font: 400 8px/11px var(--f-pixel); white-space: nowrap; overflow: hidden; text-align: left; }
-.eq { display: flex; align-items: flex-end; justify-content: center; gap: 2px; height: 16px; margin: 0 0 5px; padding: 2px; background: var(--s-black); border: 1px solid #333399; }
+.eq { display: flex; align-items: flex-end; justify-content: center; gap: 2px; height: 16px; margin: 0 0 5px; padding: 2px; background: var(--s-black); border: 1px solid #662266; }
 .eq i { flex: 1 1 0; height: 1px; background: var(--s-green); border-top: 1px solid var(--s-yellow); box-sizing: border-box; }
 .pbtns { display: flex; gap: 3px; justify-content: center; } .pbtns button { flex: 1 1 0; min-width: 0; padding: 1px 0 2px; font-size: 10px; }
 .poll label { display: block; padding: 1px 0; } .poll .res { margin: 2px 0 4px; }
-.pbar { height: 7px; border: 1px solid #333399; background: var(--s-black); } .pbar i { display: block; height: 100%; background: var(--s-hot); }
+.pbar { height: 7px; border: 1px solid #662266; background: var(--s-black); } .pbar i { display: block; height: 100%; background: var(--s-hot); }
 .fig { margin: 0 0 6px; padding: 3px; border: 1px solid var(--s-line); background: var(--s-black); text-align: center; }
 .fig img { display: block; max-width: 100%; height: auto; margin: 0 auto; } .fig figcaption { padding-top: 3px; font-size: 9px; line-height: 12px; color: var(--s-dim); }
 .fig.r { float: right; margin-left: 8px; } .fig.l { float: left; margin-right: 8px; }
 .clr { clear: both; }
-.entry { margin: 0 0 6px; border: 1px solid #333399; background: #00001f; }
+.entry { margin: 0 0 6px; border: 1px solid #662266; background: #12051a; }
 .entry > header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0 8px; padding: 1px 5px; background: var(--s-navy2); color: var(--s-cyan); font-size: 10px; }
 .entry > header > * { min-width: 0; overflow-wrap: anywhere; }   /* a 32-letter name with no spaces must wrap, not push the page sideways */
 .entry > div { padding: 5px 6px 6px; overflow-wrap: anywhere; }
@@ -125,10 +125,10 @@ table.dat td.y { color: var(--s-green); } table.dat td.n { color: #ff6666; }
 .tiles button[data-tile="t_hearts"], .page[data-site="main"][data-tile="t_hearts"] { background-image: url(../images/t_hearts.gif); }
 .tiles button[data-tile="t_moths"], .page[data-site="main"][data-tile="t_moths"] { background-image: url(../images/t_moths.gif); }
 .pats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
-.pat { display: flex; gap: 7px; align-items: flex-start; padding: 4px; border: 1px solid #333399; background: #00001f; color: inherit; font: inherit; text-align: left; }
-.page button.pat { border: 1px solid #333399; background: #00001f; color: var(--s-text); padding: 4px; }
+.pat { display: flex; gap: 7px; align-items: flex-start; padding: 4px; border: 1px solid #662266; background: #12051a; color: inherit; font: inherit; text-align: left; }
+.page button.pat { border: 1px solid #662266; background: #12051a; color: var(--s-text); padding: 4px; }
 .page button.pat:hover { border-color: var(--s-yellow); background: var(--s-navy2); }
-.pat .th { flex: 0 0 56px; height: 42px; border: 1px solid #666699; background-color: var(--s-black); position: relative; overflow: hidden; }
+.pat .th { flex: 0 0 56px; height: 42px; border: 1px solid #775588; background-color: var(--s-black); position: relative; overflow: hidden; }
 .pat b { display: block; color: var(--s-yellow); }
 .grab img { cursor: pointer; }
 .foot { padding: 6px 4px 0; text-align: center; font-size: 9px; line-height: 13px; color: var(--s-dim); }
