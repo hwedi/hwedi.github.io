@@ -33,7 +33,7 @@ Always start with `git fetch origin` and work from the latest origin/main. Ignor
    - `git push origin HEAD:main`
 3. If you cannot push to main from here, open a pull request and merge it yourself. If that is blocked too, tell the owner the single click they need to make. Never force-push.
 4. Tell the owner what changed and that it will be live in about a minute. Tell them to press Ctrl+F5 on the site (browsers keep the old files for up to ten minutes).
-5. When you publish a brand-new address (a new folder or a new .html file), wait three minutes before you open it or check it. If anyone asks for it before GitHub has finished, the "not found" answer can stick to that exact address for a long time. Adding `?x=1` to the address shows the real page meanwhile. The next push that changes a published file clears it.
+5. If you want to check the live site yourself, wait two minutes after the push. Then fetch the address with a new number on the end every time, like `https://hwedi.tech/afterglow/?v=7`. The WebFetch tool keeps the first answer it ever got for an address, for hours or longer. So a plain address can give you an old copy of the page, or "not found" for a page that is really there. (That happened on the first day: the plain address was fetched before GitHub had finished, and the tool kept saying "not found" for the rest of the day. The site itself was fine.) A new `?v=` number always gets the real page.
 
 ## What gets published
 
