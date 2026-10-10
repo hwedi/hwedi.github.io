@@ -1,0 +1,8 @@
+/* the three typefaces that ship with the site (all SIL Open Font License, see fonts/LICENSE-*.txt).
+   Silkscreen: tiny pixel labels and the monitor's on-screen menu. Michroma: the badge on the monitor and the page headings.
+   Comic Relief: stands in for Comic Sans on kero's pond when the visitor's device has no Comic Sans. */
+@font-face { font-family: "Silkscreen"; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/silkscreen-400.woff2) format("woff2"); }
+@font-face { font-family: "Silkscreen"; font-style: normal; font-weight: 700; font-display: swap; src: url(../fonts/silkscreen-700.woff2) format("woff2"); }
+@font-face { font-family: "Michroma"; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/michroma-400.woff2) format("woff2"); }
+@font-face { font-family: "Comic Relief"; font-style: normal; font-weight: 400; font-display: swap; src: url(../fonts/comic-relief-400.woff2) format("woff2"); }
+@font-face { font-family: "Comic Relief"; font-style: normal; font-weight: 700; font-display: swap; src: url(../fonts/comic-relief-700.woff2) format("woff2"); }

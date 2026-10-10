@@ -1,0 +1,7 @@
+/* Pixel fonts the drawing board uses to letter the GIFs (they come from npm install; none of them ship with the site). */
+@font-face { font-family: "Silkscreen"; font-weight: 400; src: url("node_modules/@fontsource/silkscreen/files/silkscreen-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Silkscreen"; font-weight: 700; src: url("node_modules/@fontsource/silkscreen/files/silkscreen-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "PS2P"; src: url("node_modules/@fontsource/press-start-2p/files/press-start-2p-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Tiny5"; src: url("node_modules/@fontsource/tiny5/files/tiny5-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Micro5"; src: url("node_modules/@fontsource/micro-5/files/micro-5-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Michroma"; src: url("node_modules/@fontsource/michroma/files/michroma-latin-400-normal.woff2") format("woff2"); }

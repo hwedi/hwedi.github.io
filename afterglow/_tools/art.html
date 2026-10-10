@@ -1,0 +1,28 @@
+<!doctype html>
+<!-- The drawing board. art.mjs opens this page in a headless browser and asks it to draw everything in ART. -->
+<meta charset="utf-8">
+<link rel="stylesheet" href="fonts.css">
+<body style="background:#444;margin:0">
+<script src="artlib.js"></script>
+<script src="art-ui.js"></script>
+<script src="art-buttons.js"></script>
+<script src="art-pictures.js"></script>
+<script src="art-ring.js"></script>
+<script>
+window.renderAll = async (only) => {
+  await Promise.all(Object.values(FONT).concat(['40px Michroma']).map(f => document.fonts.load(f)));
+  const b64 = (u8) => { let s = ''; const CH = 0x8000; for (let i = 0; i < u8.length; i += CH) s += String.fromCharCode.apply(null, u8.subarray(i, i + CH)); return btoa(s); };
+  const out = {};
+  for (const name of Object.keys(ART)) {
+    if (only && !only.includes(name)) continue;
+    let r; try { r = ART[name](); } catch (e) { out[name] = { error: String(e && e.stack || e) }; continue; }
+    if (r && r.canvas) r = { frames: [r] };
+    const g0 = r.frames[0], w = g0.canvas.width, h = g0.canvas.height;
+    if (r.kind === 'jpg') { out[name] = { w, h, kind: 'jpg', url: g0.canvas.toDataURL('image/jpeg', r.q || .7) }; continue; }
+    if (r.kind === 'png') { out[name] = { w, h, kind: 'png', url: g0.canvas.toDataURL('image/png') }; continue; }
+    const delay = r.frames.map((_, i) => Array.isArray(r.delay) ? r.delay[i] : (r.delay || 0));
+    out[name] = { w, h, kind: 'gif', delay, colors: r.colors || 0, frames: r.frames.map(g => b64(new Uint8Array(g.getImageData(0, 0, w, h).data.buffer))) };
+  }
+  return out;
+};
+</script>

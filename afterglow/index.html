@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AFTERGLOW :: nox's nocturnal homepage</title>
+<meta name="description" content="A 2002-style personal homepage running inside a simulated CRT monitor. Press DEGAUSS. Mind the magnet.">
+<meta name="theme-color" content="#d7d0bb" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#2c2b30" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="AFTERGLOW :: a 2002 homepage inside a CRT monitor">
+<meta property="og:description" content="Scanlines, a curved tube, a degauss button and a magnet you can drag across the screen. Best viewed after midnight.">
+<meta property="og:url" content="https://hwedi.tech/afterglow/">
+<meta property="og:image" content="https://hwedi.tech/afterglow/images/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="An old CRT monitor showing a purple and blue homepage from 2002 called AFTERGLOW.">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://hwedi.tech/afterglow/">
+<link rel="icon" type="image/png" href="images/favicon.png">
+<link rel="preload" href="fonts/silkscreen-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/michroma-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
+<link rel="stylesheet" href="css/monitor.css">
+<link rel="stylesheet" href="css/site.css">
+</head>
+<body>
+<!-- Two things live in this file: the MONITOR (plastic, glass, buttons; styled by css/monitor.css) and, inside its glass,
+     the 2002 HOMEPAGE (everything inside #page; styled by css/site.css). js/app.js runs both. Maintainer notes: .claude/CLAUDE.md in this repository. -->
+<button type="button" class="skip" id="skip">Skip to the monitor's buttons</button>
+<svg class="defs" aria-hidden="true" focusable="false"><defs>
+<filter id="crt-fx" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB" primitiveUnits="userSpaceOnUse"></filter>
+</defs></svg>
+<div class="monitor" id="monitor">
+  <div class="recess">
+    <div class="tube" id="tube">
+      <div class="geom" id="geom"><div class="pwr" id="pwr">
+        <div class="raster" id="raster">
+          <div class="scroller" id="scroller" tabindex="0" role="region" aria-label="Afterglow, nox's homepage"><div class="page w-wide" id="page">
+<script>
+// picks the "screen resolution" before the page paints: about 800 old pixels across on a wide tube, fewer columns on a narrow one
+window.__afterglowFit = function (W) { var c = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
+  return W / 1.15 >= 792 ? [Math.min(2.25, Math.floor(W / 792 * 8) / 8), 'wide'] : W >= 620 ? [W / c(W / 1.22, 560, 720), 'mid'] : [W / c(W / 1.12, 320, 430), 'narrow']; };
+(function () { var r = document.getElementById('raster'), w = r && r.clientWidth; if (!w) return; var f = window.__afterglowFit(w);
+  document.getElementById('tube').style.setProperty('--s', f[0].toFixed(4)); document.getElementById('page').className = 'page w-' + f[1]; })();
+</script>
+<!-- ======================================================================
+     AFTERGLOW v3.2 "insomnia"  ::  (c) nox 1999-2002
+     hey! what are u doing in my source code?? j/k. this is how i learned too.
+     take ideas, not graphics. and sign the guestbook on ur way out ^_^
+     ====================================================================== -->
+<a id="top"></a>
+<div class="site" id="site-main">
+<table class="shell" role="presentation" width="760" align="center" border="0" cellpadding="0" cellspacing="0">
+<colgroup><col width="148"><col><col width="168"></colgroup>
+<tr><td class="mast" colspan="3">
+  <img class="banner" src="images/banner.jpg" width="760" height="140" alt="AFTERGLOW. nox's nocturnal homepage. A pink and purple dusk over rooftops with TV aerials, one window still lit.">
+  <marquee class="ticker" id="ticker" scrollamount="2" scrolldelay="40" truespeed aria-hidden="true">+++ welcome to AFTERGLOW +++ best viewed after midnight +++ NEW: test patterns in the tube shrine +++ sign the guestbook, static gets lonely +++ 85 Hz or bust +++ don't forget to degauss +++ this page is 100% hand typed +++</marquee>
+</td></tr>
+<tr>
+<!-- ============ LEFT FRAME (ok its not a real frame, frames broke my counter) ============ -->
+<td class="col-l" width="148" valign="top">
+  <div class="box navbox"><h2 class="bt">:: navigate ::</h2><div class="bc"><nav class="nav" id="nav" aria-label="Afterglow pages">
+    <a href="#home">home</a><a href="#about">about nox</a><a href="#tube">the tube shrine</a><a href="#test">test patterns</a><a href="#journal">night log</a><a href="#links">exits</a><a href="#stuff">free stuff</a><a href="#guest">guestbook</a>
+  </nav></div></div>
+  <div class="lx">
+  <div class="box"><h2 class="bt">:: bgsound ::</h2><div class="bc player">
+    <span class="lcd" id="trk" aria-live="polite">nightdrive.mid</span>
+    <div class="eq" id="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="pbtns"><button type="button" id="mus-prev" aria-label="Previous tune">|&lt;</button><button type="button" id="mus-play">play</button><button type="button" id="mus-next" aria-label="Next tune">&gt;|</button></div>
+    <div class="tiny dim" style="margin-top:4px">3 tunes, all mine. browsers used to play these without asking.</div>
+  </div></div>
+  <div class="box"><h2 class="bt">:: counter ::</h2><div class="bc ctr-txt">
+    you are visitor<br><span class="ctr" id="ctr" role="img" aria-label="048213"><i class="d0"></i><i class="d4"></i><i class="d8"></i><i class="d2"></i><i class="d1"></i><i class="d3"></i></span><br><span class="tiny dim">since 08.21.99</span><br><span class="tiny">online right now: <blink class="yel">1</blink> (you!)</span>
+  </div></div>
+  <div class="box"><h2 class="bt">:: static ::</h2><div class="bc ctr-txt">
+    <img src="images/moth_gif.gif" width="17" height="10" data-a="moth_gif" alt="static, a small pixel moth" style="width:34px;height:20px;margin-bottom:3px"><br>static the moth lives here. he follows your cursor because it glows.<br>
+    <button type="button" id="moth-btn" aria-pressed="true" style="margin-top:4px">shoo him away</button>
+  </div></div>
+  <div class="box"><h2 class="bt">:: link me ::</h2><div class="bc ctr-txt">
+    <img src="images/b_afterglow.gif" width="88" height="31" data-a="b_afterglow" alt="AFTERGLOW link button, 88 by 31 pixels" style="margin-bottom:4px">
+    <textarea class="code" id="code-link" readonly rows="3" aria-label="HTML code for linking to Afterglow">&lt;a href="http://members.orbitcities.example/~nox/"&gt;&lt;img src="afterglow.gif" width="88" height="31" border="0" alt="AFTERGLOW"&gt;&lt;/a&gt;</textarea>
+    <span class="tiny dim">save the gif to your own space. no hotlinking!</span>
+  </div></div>
+  </div>
+</td>
+
+<!-- ============ MAIN FRAME ============ -->
+<td class="col-m" valign="top"><main id="main">
+
+<!-- ~~~~~~~~~~~~~~~~ HOME ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-home">
+  <div class="box"><h2 class="bt">:: welcome ::</h2><div class="bc">
+    <h1>hey. you found it.</h1>
+    <p>this is <b class="hot">AFTERGLOW</b>, my corner of the web since '99. i'm nox. i stay up too late, and this is what i do with the time: pixels, midis, and a shrine to the best monitor ever built.</p>
+    <p>the whole site is tuned for 800x600 on a real tube. if you're on one of those flat panel things, i'm sorry. it'll still load.</p>
+    <p>new here? start with <a href="#tube">the tube shrine</a>, then <a href="#guest">sign the guestbook</a> so static doesn't get lonely. (static is the moth. he likes your cursor.)</p>
+    <p class="tiny"><span id="clock-line">best viewed after midnight.</span></p>
+    <p class="tiny dim">p.s. if a corner of your screen looks a bit pink, that's not my css. your tube is magnetized. <a href="#" data-do="degauss">press DEGAUSS</a>.</p>
+  </div></div>
+
+  <div class="box"><h2 class="bt">:: updates ::</h2><div class="bc"><dl class="log">
+    <dt>04.27.02 <img src="images/new.gif" width="31" height="15" data-a="new" alt="new!"></dt><dd><a href="#test">test patterns</a> are up in the tube shrine. the crosshatch is the best one. you can watch your screen bend.</dd>
+    <dt>04.13.02</dt><dd>new midi in the player (nightdrive.mid). wrote it myself in a tracker so nobody can sue me.</dd>
+    <dt>03.30.02</dt><dd>layout v3.2 "insomnia" is live. v3.1 lasted two whole weeks, a record.</dd>
+    <dt>03.09.02</dt><dd>guestbook is fixed. sorry if your entry got eaten. the free cgi host ate it, not me.</dd>
+    <dt>02.16.02</dt><dd>byte's photo is on the <a href="#about">about page</a>. yes that's my cat. yes she's asleep on the monitor.</dd>
+    <dt>01.01.02</dt><dd>happy new year. my resolution: 1024x768. (kidding. 800x600 forever.)</dd>
+  </dl></div></div>
+
+  <div class="uc"><img src="images/uc_sign.gif" width="39" height="39" data-a="uc_sign" alt="under construction"><div><b class="yel">hard hats on.</b> the <a href="#journal">night log</a> and <a href="#stuff">free stuff</a> pages are still being built. mind the loose pixels.</div><img src="images/uc_sign.gif" width="39" height="39" data-a="uc_sign" alt=""></div>
+
+  <div class="box"><h2 class="bt">:: cliques + causes ::</h2><div class="bc">
+    <div class="wall">
+      <img src="images/b_crt.gif" width="88" height="31" data-a="b_crt" alt="100% CRT powered"><img src="images/b_85hz.gif" width="88" height="31" data-a="b_85hz" alt="85 Hz flicker free club"><img src="images/b_antilcd.gif" width="88" height="31" alt="Anti-LCD league"><img src="images/b_degauss.gif" width="88" height="31" data-a="b_degauss" alt="Degauss daily">
+      <img src="images/b_midnight.gif" width="88" height="31" alt="Best viewed after midnight"><img src="images/b_800x600.gif" width="88" height="31" alt="800x600 hi-color"><img src="images/b_notepad.gif" width="88" height="31" alt="Made with Notepad"><img src="images/b_handcoded.gif" width="88" height="31" alt="HTML 4.01 hand coded">
+      <img src="images/b_56k.gif" width="88" height="31" data-a="b_56k" alt="56k dial-up veteran"><img src="images/b_y2k.gif" width="88" height="31" alt="Y2K compliant"><img src="images/b_navigatron.gif" width="88" height="31" data-a="b_navigatron" alt="Get Navigatron 4 now"><img src="images/b_midi.gif" width="88" height="31" data-a="b_midi" alt="MIDI inside">
+      <img src="images/b_pixels.gif" width="88" height="31" data-a="b_pixels" alt="I love pixels"><img src="images/b_frames.gif" width="88" height="31" alt="Frames are cool ok"><img src="images/b_bookmark.gif" width="88" height="31" alt="Bookmark me, Ctrl+D"><a href="#tube"><img src="images/b_tubeshrine.gif" width="88" height="31" data-a="b_tubeshrine" alt="The tube shrine"></a>
+    </div>
+    <div class="wall" style="margin-top:6px"><img src="images/ap_crt.gif" width="80" height="15" alt="CRT, 85 Hz"><img src="images/ap_html.gif" width="80" height="15" alt="HTML by hand"><img src="images/ap_56k.gif" width="80" height="15" alt="56k friendly"><img src="images/ap_moth.gif" width="80" height="15" alt="Moth inside"><img src="images/ap_nite.gif" width="80" height="15" alt="Open all nite"></div>
+  </div></div>
+
+  <div class="box"><h2 class="bt">:: webring ::</h2><div class="bc"><div class="ring">
+    <img src="images/b_nightowls.gif" width="88" height="31" data-a="b_nightowls" alt="Night Owls webring"><br>
+    <span class="tiny">AFTERGLOW is site #41 in the <b>NIGHT OWLS</b> webring:<br>personal pages by people who should be asleep.</span>
+    <div class="rl"><a href="#campaign">&lt;&lt; prev</a><a href="#" data-do="random">random</a><a href="#404" data-dead="http://ring.nightowls.example/list">list all</a><a href="#kero">next &gt;&gt;</a></div>
+  </div></div></div>
+
+  <div class="box"><h2 class="bt">:: awards (i have three) ::</h2><div class="bc"><div class="awards">
+    <figure><img src="images/aw_cool.gif" width="100" height="104" alt="Cool Site of the Nite award, 2001"><figcaption>won it at 4am.<br>fitting.</figcaption></figure>
+    <figure><img src="images/aw_tube.gif" width="112" height="84" alt="Golden Tube Award, Tube Heads United web league, spring 2002"><figcaption>the one i'm<br>proudest of</figcaption></figure>
+    <figure><img src="images/aw_kero.gif" width="112" height="84" alt="Kero's Kewl Site Award 2002"><figcaption>kero gives these<br>to everyone. still.</figcaption></figure>
+  </div></div></div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ ABOUT ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-about" hidden>
+  <div class="box"><h2 class="bt">:: about nox ::</h2><div class="bc">
+    <h1>who's typing this</h1>
+    <figure class="fig r"><img src="images/cat.gif" width="168" height="124" alt="An orange cat asleep on top of a beige tube monitor in a dark bedroom"><figcaption>byte, guarding the heat source</figcaption></figure>
+    <p>no photo of me, sorry. here is my cat instead. her name is byte and the top of the monitor is her favourite place in the house, because it's the warmest.</p>
+    <table class="dat" style="width:auto">
+      <tr><th>handle</th><td>nox (my real name is boring)</td></tr>
+      <tr><th>age</th><td>16</td></tr>
+      <tr><th>location</th><td>third planet. timezone: nocturnal</td></tr>
+      <tr><th>sign</th><td>scorpio. one of the few constellations i can actually find</td></tr>
+      <tr><th>online since</th><td>1998, on a 33.6 modem</td></tr>
+      <tr><th>occupation</th><td>student, part-time insomniac</td></tr>
+      <tr><th>status</th><td><span class="grn">awake</span></td></tr>
+    </table>
+    <div class="clr"></div>
+    <h2>likes</h2>
+    <ul><li>the hum a monitor makes when it wakes up</li><li>rain on the window at 3am</li><li>tracker music</li><li>pixel art you have to squint at</li><li>cold pizza</li><li>the modem handshake (yes really)</li><li>long guestbook entries</li></ul>
+    <h2>dislikes</h2>
+    <ul><li>mornings</li><li>60 Hz</li><li>flash intros with no skip button</li><li>people who steal graphics</li><li>when mom picks up the phone mid-download</li><li>popup ads</li><li>dead links (sorry about mine)</li></ul>
+  </div></div>
+
+  <div class="box"><h2 class="bt">:: the rig ::</h2><div class="bc">
+    <table class="dat">
+      <tr><th>cpu</th><td>800 MHz</td></tr>
+      <tr><th>ram</th><td>256 MB. 128 wasn't enough for forty browser windows</td></tr>
+      <tr><th>video</th><td>32 MB 3D card</td></tr>
+      <tr><th>hard drive</th><td>40 GB. about 30 of it is music</td></tr>
+      <tr><th>sound</th><td>whatever came in the box, plus headphones held together with tape</td></tr>
+      <tr><th>modem</th><td>56k. the screech is my lullaby</td></tr>
+      <tr><th>os</th><td>win98 SE, and linux on the second partition (i've broken it twice)</td></tr>
+      <tr><th>monitor</th><td><b>Kilovolt K19</b>, 19 inches of glass. she gets <a href="#tube">her own page</a></td></tr>
+    </table>
+  </div></div>
+
+  <div class="box pink"><h2 class="bt">:: quiz results ::</h2><div class="bc">
+    <table class="dat">
+      <tr><th>which phosphor are you?</th><td>you are <b class="cy">P22 BLUE</b>. cool, a bit intense, glows in the dark.</td></tr>
+      <tr><th>what's your refresh rate?</th><td>you are <b class="grn">85 Hz</b>. steady. flicker-free. slightly smug about it.</td></tr>
+      <tr><th>which file extension are you?</th><td>you are <b class="yel">.mid</b>. small, cheerful, plays anywhere.</td></tr>
+    </table>
+    <span class="tiny dim">i took these at 2am. they're scientifically valid.</span>
+  </div></div>
+
+  <div class="box"><h2 class="bt">:: 8 facts (10 was too many) ::</h2><div class="bc">
+    <ol>
+      <li>my monitor has a name. it's kathy. (cathode. kathy. …i'll see myself out)</li>
+      <li>i can whistle the 56k handshake. badly.</li>
+      <li>my first website was one page with a spinning skull. we don't talk about it.</li>
+      <li>byte has stepped on the power strip three times. all three times i lost homework.</li>
+      <li>i type with six fingers and i'm still faster than you.</li>
+      <li>favourite colour: <span class="cy">#66FFFF</span>.</li>
+      <li>i once drove a whole LAN party home early by putting a midi on loop.</li>
+      <li>i think in 800x600.</li>
+    </ol>
+    <p><b>e-mail?</b> ask in the <a href="#guest">guestbook</a>. the spambots found my last address in two days.</p>
+  </div></div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ THE TUBE SHRINE ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-tube" hidden>
+  <div class="box"><h2 class="bt">:: the tube shrine ::</h2><div class="bc">
+    <h1>a whole page about my monitor</h1>
+    <figure class="fig l"><img src="images/k19.gif" width="150" height="132" alt="A beige 19 inch tube monitor showing colour bars, with a small sticker on its top left corner"><figcaption>the Kilovolt K19 Pro</figcaption></figure>
+    <p>yes. really. this is the <b>Kilovolt K19</b> and it's the best thing i own.</p>
+    <p>dad's office threw out eleven of these to buy flat panels. ELEVEN. i carried one home on the bus. it weighs 26 kilos. worth it.</p>
+    <p class="yel">wait. that badge under your screen… are you on a K19 too?? then everything on this page is about the screen you're looking at right now.</p>
+    <div class="clr"></div>
+    <h2>the numbers</h2>
+    <table class="dat">
+      <tr><th>tube</th><td>19" (18.0" you can actually see), aperture grille</td></tr>
+      <tr><th>grille pitch</th><td>0.25 mm</td></tr>
+      <tr><th>max resolution</th><td>1600 x 1200 @ 75 Hz</td></tr>
+      <tr><th>what i run</th><td>1024 x 768 @ 85 Hz, and 800 x 600 for this site</td></tr>
+      <tr><th>horizontal scan</th><td>30 to 96 kHz</td></tr>
+      <tr><th>vertical scan</th><td>50 to 160 Hz</td></tr>
+      <tr><th>phosphor</th><td>P22, medium-short persistence</td></tr>
+      <tr><th>anode voltage</th><td>about 27,000 volts. hence the name</td></tr>
+      <tr><th>weight</th><td>26 kg</td></tr>
+      <tr><th>power</th><td>130 W. doubles as a hand warmer</td></tr>
+      <tr><th>your signal</th><td><span id="sig-line">800 x 600 @ 85 Hz</span></td></tr>
+    </table>
+  </div></div>
+
+  <div class="box"><h2 class="bt">:: tube vs flat, spring 2002 ::</h2><div class="bc"><div class="scrollx">
+    <table class="dat">
+      <thead><tr><th>&nbsp;</th><th>tube (CRT)</th><th>flat (LCD)</th></tr></thead>
+      <tr><th>price, 17" and up</th><td class="y">cheap, or free from a dumpster</td><td class="n">ouch</td></tr>
+      <tr><th>colours</th><td class="y">all of them</td><td class="n">6 bits a channel on lots of panels, plus dithering</td></tr>
+      <tr><th>motion</th><td class="y">instant</td><td class="n">25 ms of smear</td></tr>
+      <tr><th>resolutions</th><td class="y">any you like</td><td class="n">one. choose wisely</td></tr>
+      <tr><th>viewing angle</th><td class="y">yes</td><td class="n">lean left and the colours change</td></tr>
+      <tr><th>black</th><td class="y">black</td><td class="n">dark grey, glowing</td></tr>
+      <tr><th>weight</th><td class="n">26 kg</td><td class="y">ok fine</td></tr>
+      <tr><th>warms a cat</th><td class="y">yes</td><td class="n">no</td></tr>
+    </table></div>
+    <p><b>verdict:</b> tubes rule. come back in twenty years and tell me i was wrong.</p>
+  </div></div>
+
+  <div class="box"><h2 class="bt">:: how it works (ascii edition) ::</h2><div class="bc">
+<pre aria-label="ASCII diagram of a cathode ray tube: an electron gun in the narrow neck fires a beam through the deflection coils, and the tube flares out to the phosphor-coated glass you are looking at">
+                                    ________
+                          ___..---''       |
+                ___..---''                 |
+  ___________||''                          |
+ | gun  >====||==========================> | &lt;- you
+ |___________||__                          |    are here
+       neck  ||  ''---..___                |
+          deflection       ''---..___      |
+            coils                    ''-.._|
+                               grille + phosphor
+</pre>
+    <p>a gun at the back fires electrons at the glass. magnets steer the beam left to right, top to bottom, <span id="hz-line">51,000</span> lines every second. where it hits, the phosphor glows. that's the whole trick. it's a particle accelerator on your desk and people are throwing them away.</p>
+  </div></div>
+
+  <div class="box"><h2 class="bt">:: words you need ::</h2><div class="bc"><dl class="log">
+    <dt>refresh rate</dt><dd>how many times a second the beam repaints the whole screen. 60 Hz flickers. 85 Hz is where the headaches stop.</dd>
+    <dt>grille pitch</dt><dd>the gap between two phosphor stripes of the same colour. smaller is sharper. lean in close and you can see the stripes.</dd>
+    <dt>aperture grille</dt><dd>fine vertical wires that keep each beam on its own colour. the other kind is a shadow mask, a metal sheet full of holes.</dd>
+    <dt>damper wires</dt><dd>grille screens have one or two hair-thin wires running across to stop the grille ringing. a big tube like this one gets two. look a third of the way down your screen. now two thirds. see the faint lines? that's them. it's not broken.</dd>
+    <dt>degauss</dt><dd>the grille gets magnetized (speakers, getting moved, the planet) and colours go blotchy. the degauss button fires a coil that shakes it out. it goes <b>BWONNG</b> and the picture wobbles. <a href="#" data-do="degauss">press it.</a> best button on the monitor. give it a rest between presses: the part that feeds the coil heats up, and until it cools the coil can't do much.</dd>
+    <dt>convergence</dt><dd>red, green and blue are three separate beams that should land on the same spot. near the corners they drift apart. that's the colour fringe on white text.</dd>
+    <dt>phosphor</dt><dd>the coating inside the glass that glows when the beam hits it. it keeps glowing for a moment afterwards. that's the afterglow. that's the name of the site. now you know.</dd>
+    <dt>trapezoid, parallelogram, rotation</dt><dd>geometry settings. the picture is bent into place by magnets, so the <a href="#" data-do="menu">menu</a> lets you bend it back yourself.</dd>
+  </dl></div></div>
+
+  <div class="box"><h2 class="bt">:: care and feeding ::</h2><div class="bc">
+    <ul>
+      <li>set your refresh rate to 85 Hz. right now. i'll wait.</li>
+      <li>keep unshielded speakers away from it.</li>
+      <li>keep magnets away from the glass. yes, including the one stuck on the front of yours. (if you ignore me, degauss is how you say sorry.)</li>
+      <li>degauss after you move it.</li>
+      <li>never open the case. the tube holds its charge for days and does not care how curious you are.</li>
+      <li>cats are allowed on top. keep the vents clear. (byte ignores this.)</li>
+    </ul>
+    <hr class="scope">
+    <p class="ctr-txt"><b class="yel">try it on yours:</b> <a href="#" data-do="menu">MENU</a> for brightness and geometry (RECALL puts it all back) :: <a href="#" data-do="degauss">DEGAUSS</a> for fun :: then the <a href="#test">test patterns</a></p>
+  </div></div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ TEST PATTERNS ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-test" hidden>
+  <div class="box"><h2 class="bt">:: test patterns ::</h2><div class="bc">
+    <h1>how good is your tube?</h1>
+    <p>pick one and it fills the whole screen. click anywhere, or press esc, to come back.</p>
+    <div class="pats" id="pats">
+      <button type="button" class="pat" data-pat="grid"><span class="th p-grid"></span><span><b>crosshatch</b>geometry. the lines should be straight. they aren't. that's the glass.</span></button>
+      <button type="button" class="pat" data-pat="bars"><span class="th p-bars"><i style="background:#fff"></i><i style="background:#ff0"></i><i style="background:#0ff"></i><i style="background:#0f0"></i><i style="background:#f0f"></i><i style="background:#f00"></i><i style="background:#00f"></i><i style="background:#000"></i><u></u><s></s></span><span><b>colour bars</b>eight bars, all different. the ramps underneath should be smooth.</span></button>
+      <button type="button" class="pat" data-pat="steps"><span class="th p-steps" id="th-steps"></span><span><b>grey steps</b>count sixteen. if the darkest ones merge, turn brightness up.</span></button>
+      <button type="button" class="pat" data-pat="dots"><span class="th p-dots"></span><span><b>convergence</b>white dots on black. coloured edges mean your beams have drifted.</span></button>
+      <button type="button" class="pat" data-pat="pure"><span class="th p-pure"></span><span><b>purity</b>one flat colour, edge to edge. blotches mean it's degauss time. click to change colour.</span></button>
+      <button type="button" class="pat" data-pat="moire"><span class="th p-moire"></span><span><b>moir&eacute;</b>one-pixel stripes. the coloured bands are the grille arguing with the pixels.</span></button>
+      <button type="button" class="pat" data-pat="focus"><span class="th p-focus" id="th-focus"></span><span><b>focus</b>tiny text everywhere. the corners are always softest.</span></button>
+      <button type="button" class="pat" data-pat="bounce"><span class="th p-bounce"><i></i></span><span><b>bounce</b>a blinking white box. watch the picture edge breathe: that's the high voltage sagging.</span></button>
+    </div>
+    <p class="tiny dim" style="margin-top:8px">if anything looks wrong, that's what the <a href="#" data-do="menu">MENU</a> button is for. i take no responsibility for what you do to your trapezoid.</p>
+  </div></div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ NIGHT LOG ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-journal" hidden>
+  <div class="uc"><img src="images/uc_sign.gif" width="39" height="39" data-a="uc_sign" alt="under construction"><div><b class="yel">under construction.</b> older entries are on a floppy somewhere. i'm looking.</div></div>
+  <div class="box"><h2 class="bt">:: the night log ::</h2><div class="bc">
+    <h1>things i wrote instead of sleeping</h1>
+    <article class="entry"><header><b>04.23.02 :: 03:12</b><span>mood: smug :: hearing: the fan</span></header><div>found out today that most people run their monitors at 60 Hz because that's what windows picks and nobody ever changes it. NOBODY. so at lunch i went around the computer lab and set six of them to 85. nobody noticed. three people said their headache went away by last period.<br><br>i am a silent hero.</div></article>
+    <article class="entry"><header><b>03.02.02 :: 01:47</b><span>mood: static-y :: hearing: rain</span></header><div>thunderstorm. unplugged everything, including the phone line. (rest in peace, my last modem, august 2001. we remember.) wrote this on paper by flashlight and typed it up after. the paper version had a drawing of byte. you'll have to imagine it.</div></article>
+    <article class="entry"><header><b>01.19.02 :: 04:30</b><span>mood: tired, happy :: hearing: ears ringing</span></header><div>LAN party in dev's garage. i brought the K19 on the bus. 26 kilos, two changes, and one very nice driver who asked if it was a microwave. everyone else's screens looked washed out next to it.<br><br>dev's dad kept coming in to ask if we were "winning the internet". we were on a LAN. there was no internet. i said yes.</div></article>
+    <article class="entry"><header><b>11.18.01 :: 05:55</b><span>mood: !!!!! :: hearing: nothing. it was so quiet</span></header><div>the leonids. stood in the backyard from four until the sky went grey and counted 212 before i lost track. some of them left trails that hung there for a second or two afterwards, like the sky had long-persistence phosphor.<br><br>best thing i've ever seen that wasn't on a screen.</div></article>
+    <article class="entry"><header><b>08.21.01 :: 02:20</b><span>mood: two years old</span></header><div>afterglow is two today. version 1 was a single page with a tiled flame background and a midi i did not write. if you saw it, no you didn't.<br><br>thanks for 40,000 hits. i checked the logs and about 9,000 of them are me pressing reload.</div></article>
+    <article class="entry"><header><b>06.30.01 :: 03:03</b><span>mood: …</span></header><div>mom picked up the phone at 97% of a forty minute download.<br><br>i'm not angry. i'm just going to sit here in the dark for a while.</div></article>
+  </div></div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ EXITS ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-links" hidden>
+  <div class="box"><h2 class="bt">:: exits ::</h2><div class="bc">
+    <h1><img src="images/globe.gif" width="32" height="32" data-a="globe" alt=""> other places to be awake</h1>
+    <p>every link checked in april. if one's dead, tell me in the <a href="#guest">guestbook</a> and i'll hold a small funeral.</p>
+    <h2>tube heads</h2>
+    <dl class="log">
+      <dt><a href="#campaign">the 85 Hz campaign</a></dt><dd>one person, one mission, a lot of capital letters.</dd>
+      <dt><a href="#404" data-dead="http://members.orbitcities.example/~tubeguide/">CRT field guide</a></dt><dd>every tube monitor since 1994, with dot pitch. no pictures. 300 pages. i've read all of it.</dd>
+      <dt><a href="#404" data-dead="http://www.degauss-wav.example/">degauss.wav</a></dt><dd>a site that is only the sound. turn your speakers down first. or don't.</dd>
+    </dl>
+    <h2>pixel pushers</h2>
+    <dl class="log">
+      <dt><a href="#404" data-dead="http://www.moonbyte.example/">moonbyte</a></dt><dd>lunar pixel shop. free tiles, tiny fonts, very patient about my questions.</dd>
+      <dt><a href="#404" data-dead="http://www.pixelcafe.example/forum/">pixel caf&eacute;</a></dt><dd>pixel art forum. the regulars are scary good.</dd>
+      <dt><a href="#kero">kero's pond</a></dt><dd>kero draws frogs. only frogs. hundreds of frogs.</dd>
+    </dl>
+    <h2>noise</h2>
+    <dl class="log">
+      <dt><a href="#404" data-dead="http://www.copper.example/mods/">copper</a></dt><dd>demos and tracker modules. bring headphones.</dd>
+      <dt><a href="#404" data-dead="http://www.radiostatic.example/listen.pls">radio static</a></dt><dd>internet radio that is sometimes just static. on purpose, i think.</dd>
+    </dl>
+    <h2>how i learned this stuff</h2>
+    <dl class="log">
+      <dt><a href="#404" data-dead="http://www.tables-for-the-hopeless.example/">tables for the hopeless</a></dt><dd>where i learned layout tables. bless them.</dd>
+      <dt><a href="#404" data-dead="http://www.216colours.example/chart.html">the colour chart</a></dt><dd>all 216 web-safe colours on one page. it's printed out above my desk.</dd>
+    </dl>
+  </div></div>
+  <div class="box"><h2 class="bt">:: affiliates get the big buttons ::</h2><div class="bc"><div class="wall">
+    <a href="#404" data-dead="http://www.moonbyte.example/"><img src="images/b_moonbyte.gif" width="88" height="31" alt="moonbyte, lunar pixel shop"></a><a href="#kero"><img src="images/b_kero.gif" width="88" height="31" alt="kero's pond"></a><a href="#404" data-dead="http://www.copper.example/mods/"><img src="images/b_copper.gif" width="88" height="31" alt="copper, demos and mods"></a><a href="#404" data-dead="http://www.pixelcafe.example/forum/"><img src="images/b_pxlcafe.gif" width="88" height="31" data-a="b_pxlcafe" alt="pixel caf&eacute;"></a><a href="#404" data-dead="http://www.radiostatic.example/listen.pls"><img src="images/b_static.gif" width="88" height="31" data-a="b_static" alt="radio static"></a>
+  </div></div></div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ 404: the rest of the web, as of right now ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-404" hidden>
+  <div class="dead">
+    <h1>Not Found</h1>
+    <p>The requested URL <tt id="dead-url">/lost.html</tt> was not found on this server.</p>
+    <hr>
+    <address><span id="dead-host">members.orbitcities.example</span>, port 80</address>
+    <p><br>(nox here. that link was alive when i checked it in april, promise. the web moves fast. <a href="#links">back to the exits</a> or <a href="#home">home</a>.)</p>
+  </div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ FREE STUFF ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-stuff" hidden>
+  <div class="uc"><img src="images/uc_sign.gif" width="39" height="39" data-a="uc_sign" alt="under construction"><div><b class="yel">still unpacking.</b> more tiles when i finish them. i work slow, i do it one pixel at a time.</div></div>
+  <div class="box"><h2 class="bt">:: free stuff ::</h2><div class="bc">
+    <h1>take what you like</h1>
+    <p>free graphics for your own page. link back if you're nice. save them to your own space. my host only gives me 3 MB of traffic an hour, and hotlinked gifs eat it fast.</p>
+    <h2>backgrounds: click one to try it on</h2>
+    <div class="tiles" id="tiles">
+      <button type="button" data-tile="bg_stars" aria-pressed="true" aria-label="starfield (the one this site uses)"></button>
+      <button type="button" data-tile="t_grid" aria-pressed="false" aria-label="blue grid"></button>
+      <button type="button" data-tile="t_plasma" aria-pressed="false" aria-label="purple plasma"></button>
+      <button type="button" data-tile="t_checker" aria-pressed="false" aria-label="midnight checker"></button>
+      <button type="button" data-tile="t_circuit" aria-pressed="false" aria-label="circuit board"></button>
+      <button type="button" data-tile="t_hearts" aria-pressed="false" aria-label="hearts"></button>
+      <button type="button" data-tile="t_moths" aria-pressed="false" aria-label="moths in the dark"></button>
+    </div>
+    <h2>blinkies, buttons, a moth</h2>
+    <p>click any graphic and its code shows up in the box.</p>
+    <div class="wall grab" id="grab">
+      <img src="images/bk_nightowl.gif" width="150" height="20" data-a="bk_nightowl" alt="night owl blinkie" data-file="blinkie_nightowl.gif" tabindex="0"><img src="images/bk_crt.gif" width="150" height="20" data-a="bk_crt" alt="CRT beats LCD blinkie" data-file="blinkie_crt.gif" tabindex="0"><img src="images/bk_insomnia.gif" width="150" height="20" data-a="bk_insomnia" alt="certified insomniac blinkie" data-file="blinkie_insomniac.gif" tabindex="0"><img src="images/bk_moth.gif" width="150" height="20" data-a="bk_moth" alt="moth mode on blinkie" data-file="blinkie_moth.gif" tabindex="0">
+      <img src="images/b_afterglow2.gif" width="88" height="31" data-a="b_afterglow2" alt="AFTERGLOW phosphor powered button" data-file="afterglow_green.gif" tabindex="0"><img src="images/b_crt.gif" width="88" height="31" data-a="b_crt" alt="100% CRT powered button" data-file="crt_powered.gif" tabindex="0"><img src="images/b_antilcd.gif" width="88" height="31" alt="Anti-LCD league button" data-file="anti_lcd.gif" tabindex="0"><img src="images/b_degauss.gif" width="88" height="31" data-a="b_degauss" alt="Degauss daily button" data-file="degauss_daily.gif" tabindex="0">
+      <img src="images/ap_crt.gif" width="80" height="15" alt="CRT 85 Hz badge" data-file="crt85.gif" tabindex="0"><img src="images/ap_noflash.gif" width="80" height="15" alt="no intros badge" data-file="no_intros.gif" tabindex="0"><img src="images/ap_nite.gif" width="80" height="15" alt="open all nite badge" data-file="allnite.gif" tabindex="0"><img src="images/moth_gif.gif" width="17" height="10" data-a="moth_gif" alt="adoptable pixel moth" data-file="adopt_a_moth.gif" tabindex="0" style="width:34px;height:20px">
+    </div>
+    <textarea class="code" id="code-grab" readonly rows="3" aria-label="HTML code for the graphic you clicked" style="margin-top:6px">&lt;!-- click a graphic above --&gt;</textarea>
+    <h2>smilies for your guestbook</h2>
+    <p><i class="sm sm-smile" role="img" aria-label="smile"></i> <i class="sm sm-grin" role="img" aria-label="grin"></i> <i class="sm sm-wink" role="img" aria-label="wink"></i> <i class="sm sm-tongue" role="img" aria-label="tongue out"></i> <i class="sm sm-cool" role="img" aria-label="cool"></i> <i class="sm sm-shock" role="img" aria-label="shocked"></i> <i class="sm sm-sad" role="img" aria-label="sad"></i> &nbsp;15x15, hand-pixelled, slightly lumpy.</p>
+  </div></div>
+</div>
+
+<!-- ~~~~~~~~~~~~~~~~ GUESTBOOK ~~~~~~~~~~~~~~~~ -->
+<div class="pg" id="pg-guest" hidden>
+  <div class="box pink"><h2 class="bt">:: sign the guestbook ::</h2><div class="bc">
+    <h1>prove you were here</h1>
+    <p>it's the only way i know anyone's out there.</p>
+    <form id="gb-form" autocomplete="off" novalidate>
+      <label class="frow"><span>name</span><input type="text" id="gb-name" maxlength="32" required></label>
+      <label class="frow"><span>from</span><input type="text" id="gb-from" maxlength="40" placeholder="planet, town, bedroom"></label>
+      <label class="frow"><span>message</span><textarea id="gb-msg" rows="4" maxlength="500" required></textarea></label>
+      <div class="frow"><span>mood</span><span id="gb-moods" style="flex:1 1 auto">
+        <label><input type="radio" name="gb-mood" id="gb-m1" value="smile" checked> <i class="sm sm-smile" role="img" aria-label="smile"></i></label>
+        <label><input type="radio" name="gb-mood" id="gb-m2" value="grin"> <i class="sm sm-grin" role="img" aria-label="grin"></i></label>
+        <label><input type="radio" name="gb-mood" id="gb-m3" value="wink"> <i class="sm sm-wink" role="img" aria-label="wink"></i></label>
+        <label><input type="radio" name="gb-mood" id="gb-m4" value="cool"> <i class="sm sm-cool" role="img" aria-label="cool"></i></label>
+        <label><input type="radio" name="gb-mood" id="gb-m5" value="shock"> <i class="sm sm-shock" role="img" aria-label="shocked"></i></label>
+        <label><input type="radio" name="gb-mood" id="gb-m6" value="sad"> <i class="sm sm-sad" role="img" aria-label="sad"></i></label></span></div>
+      <div class="frow"><span></span><span><button type="submit" id="gb-sign">sign it</button> <button type="reset" id="gb-clear">start over</button></span></div>
+      <p class="tiny dim" id="gb-note">heads up: my host took cgi-bin away, so your entry is saved on your own computer and only you will see it.</p>
+    </form>
+  </div></div>
+  <div class="box"><h2 class="bt">:: what people said ::</h2><div class="bc">
+    <div id="gb-mine"></div>
+    <article class="entry"><header><span><b>kero</b> :: the pond</span><span>04.20.02</span></header><div><i class="sm sm-grin" role="img" aria-label="grin"></i> ribbit!! ur site is so kewl. the moth keeps sitting on my cursor and now i can't click anything. 10/10 would get stuck again</div></article>
+    <article class="entry"><header><span><b>~*StarryNite*~</b> :: found u thru the ring</span><span>04.02.02</span></header><div><i class="sm sm-shock" role="img" aria-label="shocked"></i> i pressed degauss like u said and my mom came in asking what the noise was lol. pressed it again after she left</div></article>
+    <article class="entry"><header><span><b>moonbyte</b> :: the moon, obviously</span><span>03.31.02</span></header><div><i class="sm sm-smile" role="img" aria-label="smile"></i> the new layout looks great at 1024 too (i cheated and checked). affiliate request sent.</div></article>
+    <article class="entry"><header><span><b>LCD_Larry</b> :: the future</span><span>03.15.02</span></header><div><i class="sm sm-cool" role="img" aria-label="cool"></i> flat panels are the future, kid.<div class="re">nox: we'll see.</div></div></article>
+    <article class="entry"><header><span><b>copper</b> :: the scene</span><span>02.27.02</span></header><div><i class="sm sm-wink" role="img" aria-label="wink"></i> greets. nice tune in the player. which tracker?<div class="re">nox: the free one. four channels, zero manual.</div></div></article>
+    <article class="entry"><header><span><b>Dad</b> :: downstairs</span><span>02.03.02</span></header><div><i class="sm sm-smile" role="img" aria-label="smile"></i> Very nice page. Is this what you do instead of sleeping? That monitor was supposed to go in the dumpster. Love, Dad<div class="re">nox: DAD. this is a public guestbook</div></div></article>
+    <article class="entry"><header><span><b>dev</b> :: my garage</span><span>01.22.02</span></header><div><i class="sm sm-tongue" role="img" aria-label="tongue out"></i> you left your mouse pad here. also your monitor made mine look bad and i'm still mad about it.</div></article>
+    <article class="entry"><header><span><b>anonymous</b></span><span>12.09.01</span></header><div><i class="sm sm-sad" role="img" aria-label="sad"></i> 60 Hz is fine.<div class="re">nox: no.</div></div></article>
+  </div></div>
+</div>
+
+</main></td>
+
+<!-- ============ RIGHT FRAME ============ -->
+<td class="col-r" width="168" valign="top">
+  <div class="box"><h2 class="bt">:: currently ::</h2><div class="bc">
+    mood: <span class="hot">wired</span><br>your time: <span class="grn" id="now-time">--:--</span><br>hearing: <span id="now-hear">the fan</span><br>playing: starhopper 3<br>reading: the K19 manual (again)<br>eating: cold pizza<br>wanting: a cable modem
+  </div></div>
+  <div class="box"><h2 class="bt">:: poll ::</h2><div class="bc poll" id="poll">
+    <form id="poll-form"><b>tube or flat?</b>
+      <label><input type="radio" name="poll" id="poll-1" value="0"> tube 4 life</label>
+      <label><input type="radio" name="poll" id="poll-2" value="1"> flat is fine</label>
+      <label><input type="radio" name="poll" id="poll-3" value="2"> what's an LCD</label>
+      <label><input type="radio" name="poll" id="poll-4" value="3"> i'm on a toaster</label>
+      <div style="margin-top:4px"><button type="submit" id="poll-vote">vote</button></div>
+    </form>
+    <div id="poll-res" hidden></div>
+  </div></div>
+  <div class="box"><h2 class="bt">:: nox-cam ::</h2><div class="bc ctr-txt">
+    <img src="images/cam.gif" width="128" height="96" data-a="cam" alt="Webcam window showing static and the words NO SIGNAL" style="max-width:100%;height:auto;border:1px solid #333399"><br><span class="tiny dim">offline since 1999.<br>i don't own a webcam.</span>
+  </div></div>
+  <div class="box"><h2 class="bt">:: affiliates ::</h2><div class="bc"><div class="wall">
+    <a href="#404" data-dead="http://www.moonbyte.example/"><img src="images/b_moonbyte.gif" width="88" height="31" alt="moonbyte"></a><a href="#kero"><img src="images/b_kero.gif" width="88" height="31" alt="kero's pond"></a><a href="#404" data-dead="http://www.copper.example/mods/"><img src="images/b_copper.gif" width="88" height="31" alt="copper"></a><a href="#404" data-dead="http://www.pixelcafe.example/forum/"><img src="images/b_pxlcafe.gif" width="88" height="31" data-a="b_pxlcafe" alt="pixel caf&eacute;"></a>
+  </div><div class="tiny dim ctr-txt" style="margin-top:4px">want in? <a href="#guest">ask in the guestbook</a></div></div></div>
+  <div class="box"><h2 class="bt">:: site stats ::</h2><div class="bc tiny">
+    online since: 08.21.99<br>layout: v3.2 "insomnia"<br>last update: 04.27.02<br>made with: notepad, and a paint program off a magazine CD<br>best in: 800x600, 16-bit colour, 85 Hz<br>your signal: <span class="grn" id="res-line">800x600</span>
+  </div></div>
+</td>
+</tr>
+<tr><td class="foot" colspan="3">
+  <div class="wall"><img src="images/b_800x600.gif" width="88" height="31" alt="800x600 hi-color"><img src="images/b_midnight.gif" width="88" height="31" alt="Best viewed after midnight"><img src="images/b_navigatron.gif" width="88" height="31" data-a="b_navigatron" alt="Get Navigatron 4 now"><a href="#guest"><img src="images/b_guestbook.gif" width="88" height="31" data-a="b_guestbook" alt="Sign my guestbook"></a></div>
+  <center>&copy; 1999-2002 nox. every tag on this page was typed by hand at a stupid hour.</center>
+  don't steal. if you learned something from the source, that's what it's for. <a href="#top">back to top</a>
+</td></tr>
+</table>
+</div>
+<!-- that's all of it. thx for reading my source. now go sign the guestbook -->
+
+<!-- ======================================================================
+     everything below here is NOT my site. it's the neighbours in the
+     NIGHT OWLS webring. don't blame me for their html
+     ====================================================================== -->
+<div class="site s-kero" id="site-kero" hidden>
+<table class="kp" role="presentation" width="520" align="center" border="4" cellpadding="8" cellspacing="0"><tr><td align="center">
+  <h1><font color="#ff3399">~</font><font color="#ff9900">*</font><font color="#ff3399">~</font> kero's pond <font color="#ff3399">~</font><font color="#ff9900">*</font><font color="#ff3399">~</font></h1>
+  <img src="images/frog_hop.gif" width="26" height="34" data-a="frog_hop" alt="a small green frog, hopping" style="width:52px;height:68px">
+  <p><b>ribbit!!</b> welcome 2 my pond. i am kero and i draw frogs. only frogs. these r my best ones. (there r 214 more on my hard drive)</p>
+  <marquee behavior="alternate" scrollamount="2" scrolldelay="40" truespeed aria-hidden="true">~ * ~ frogs frogs frogs frogs frogs ~ * ~</marquee>
+  <h2>click a frog 2 make it ribbit</h2>
+  <div class="frogs" id="frogs">
+    <button type="button" aria-label="classic frog"></button><button type="button" aria-label="blue spotty frog"></button><button type="button" aria-label="pink frog with a bow"></button><button type="button" aria-label="king frog"></button><button type="button" aria-label="tree frog with red eyes"></button><button type="button" aria-label="ghost frog in a top hat"></button><button type="button" aria-label="cool frog"></button>
+  </div>
+  <p>ribbits so far: <b id="ribbits">0</b></p>
+  <h2>frog facts (all true)</h2>
+  <ul>
+    <li>a group of frogs is called an army</li>
+    <li>frogs don't drink. they soak water up thru their skin</li>
+    <li>wood frogs freeze solid in winter and thaw out fine in spring</li>
+    <li>i am not a frog. i checked</li>
+  </ul>
+  <h2>an award 4 u</h2>
+  <p>if ur site is kewl u can have this. everybody's site is kewl</p>
+  <img src="images/aw_kero.gif" width="112" height="84" alt="Kero's Kewl Site Award 2002">
+  <h2>link 2 me</h2>
+  <p><img src="images/b_kero_ribbit.gif" width="88" height="31" data-a="b_kero_ribbit" alt="kero's pond link button, 88 by 31 pixels"><br><span class="tiny">take it!! put it on ur page</span></p>
+  <hr>
+  <p><img src="images/b_nightowls.gif" width="88" height="31" data-a="b_nightowls" alt="Night Owls webring"><br>this pond is site #42 in the <b>NIGHT OWLS</b> webring<br>
+  <a href="#home">&lt;&lt; prev (afterglow)</a> &nbsp;|&nbsp; <s>next &gt;&gt;</s><br><span class="tiny">(site #43 went away :( if u r site #43 pls come back)</span></p>
+  <p class="tiny">best viewed with ur eyes :: made with a mouse and a dream :: (c) kero 2002</p>
+</td></tr></table>
+</div>
+
+<div class="site s-85" id="site-campaign" hidden>
+  <h1>THE 85 Hz CAMPAIGN</h1>
+  <font size="2">(formerly The 75 Hz Campaign)</font>
+  <hr>
+  <p><blink><font color="#ff0000"><b>WARNING:</b></font></blink> <b>YOUR MONITOR IS PROBABLY SET TO 60 Hz RIGHT NOW.</b></p>
+  <p>THAT MEANS THE SCREEN IS REDRAWN ONLY 60 TIMES A SECOND. YOU CAN'T QUITE SEE IT. YOUR HEAD CAN FEEL IT.</p>
+  <table border="1" cellpadding="4" cellspacing="0" align="center">
+    <tr><th>REFRESH RATE</th><th>WHAT IT DOES TO YOU</th></tr>
+    <tr><td>60 Hz</td><td>HEADACHE BY LUNCHTIME</td></tr>
+    <tr><td>72 Hz</td><td>TOLERABLE</td></tr>
+    <tr><td>75 Hz</td><td>ACCEPTABLE</td></tr>
+    <tr bgcolor="#ffff99"><td><b>85 Hz</b></td><td><b>PEACE</b></td></tr>
+    <tr><td>100 Hz</td><td>SHOWING OFF</td></tr>
+  </table>
+  <h2>SEE FOR YOURSELF</h2>
+  <div class="demo"><div><i class="fl60"></i>60 Hz</div><div><i></i>85 Hz</div></div>
+  <h2>HOW TO FIX IT (30 SECONDS)</h2>
+  <ol>
+    <li>RIGHT-CLICK THE DESKTOP</li>
+    <li>PROPERTIES</li>
+    <li>SETTINGS</li>
+    <li>ADVANCED</li>
+    <li>MONITOR (SOMETIMES IT'S UNDER ADAPTER)</li>
+    <li>REFRESH RATE: 85 HERTZ</li>
+    <li>OK. APPLY. BREATHE.</li>
+  </ol>
+  <h2>SIGN THE PETITION</h2>
+  <p>WE DEMAND THAT EVERY COMPUTER SHIPS SET TO 85 Hz.</p>
+  <p><b id="pet-n">1,406</b> SIGNATURES SO FAR &nbsp; <button type="button" id="pet-btn">SIGN</button></p>
+  <h2>SPREAD THE WORD</h2>
+  <p><img src="images/b_campaign.gif" width="88" height="31" data-a="b_campaign" alt="The 85 Hz Campaign link button, 88 by 31 pixels"><br><font size="2">PUT THIS BUTTON ON YOUR PAGE. IT IS YOUR DUTY.</font></p>
+  <hr>
+  <p><s>&lt;&lt; PREV</s> | NIGHT OWLS WEBRING, SITE #40 | <a href="#home">NEXT &gt;&gt;</a><br><font size="2">(SITE #39 BOUGHT A FLAT PANEL. WE DO NOT SPEAK OF SITE #39.)</font></p>
+  <p><font size="2">THIS PAGE USES NO STYLE SHEETS AND NO JAVASCRIPT.* IT LOOKS THE SAME IN EVERY BROWSER. YOU'RE WELCOME.<br>* EXCEPT THE PETITION BUTTON</font></p>
+</div>
+
+          </div></div>
+          <div class="hud" id="hud">
+            <div class="moth" id="moth" hidden></div>
+            <div class="pattern" id="pattern" hidden></div>
+            <div class="osd" id="osd" hidden role="dialog" aria-label="Monitor menu"></div>
+            <div class="toast" id="toast" hidden role="status"></div>
+            <div class="cur c-arrow" id="cur"></div>
+          </div>
+          <div class="blk" id="blk"></div>
+          <i id="probe" style="position:absolute;left:0;top:0;width:1px;height:1px;background:#000"></i>
+        </div>
+        <div class="ov ov-scan" id="ov-scan"></div>
+      </div></div>
+      <div class="ov ov-mask" id="ov-mask"></div>
+      <div class="ov ov-halo"></div>
+      <div class="ov ov-gain" id="ov-gain"></div>
+      <div class="ov ov-tint" id="ov-tint"></div>
+      <div class="ov ov-noise"></div>
+      <div class="ov ov-hum"></div>
+      <div class="ov ov-resid" id="ov-resid"></div>
+      <div class="ov ov-mag" id="ov-mag"></div>
+      <div class="ov ov-purity" id="ov-purity"></div>
+      <div class="ov ov-flick"></div>
+      <div class="ov ov-wires"></div>
+      <div class="ov ov-vig"></div>
+      <div class="ov ov-glare"></div>
+      <div class="pdot"></div>
+      <button class="wake" id="wake" type="button" hidden aria-label="The monitor is off. Turn it on."></button>
+    </div>
+  </div>
+  <div class="chin">
+    <div class="brand">KILOVOLT<small>K19 Pro</small></div>
+    <div class="mid"><div class="sticker" aria-hidden="true"><b>85 Hz</b>FLICKER FREE</div><button class="magnet" id="magnet" type="button" aria-label="A magnet. Drag it across the screen, or press Enter to wave it at the glass." title="a magnet. keep it away from the screen. (or don't.)"></button></div>
+    <div class="ctl">
+      <button class="key" id="k-menu" type="button" aria-haspopup="dialog" aria-expanded="false">MENU</button>
+      <button class="key" id="k-degauss" type="button">DEGAUSS</button>
+      <span class="led" aria-hidden="true"></span>
+      <button class="key power" id="k-power" type="button" aria-pressed="true" aria-label="Power"></button>
+    </div>
+  </div>
+</div>
+<script src="js/app.js"></script>
+</body>
+</html>
